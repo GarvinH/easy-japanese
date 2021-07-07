@@ -4,32 +4,37 @@
  * https://reactnavigation.org/docs/configuring-links
  */
 
-import * as Linking from 'expo-linking';
+import * as Linking from "expo-linking";
 
 export default {
-  prefixes: [Linking.makeUrl('/')],
+  prefixes: [Linking.makeUrl("/")],
   config: {
     screens: {
       Root: {
         screens: {
           Learn: {
             screens: {
-              LearnScreen: 'one',
+              LearnScreen: "one",
             },
           },
           Tutors: {
             screens: {
-              TutorsScreen: 'two',
+              TutorsScreen: "two",
+            },
+          },
+          Practice: {
+            screens: {
+              PracticeScreen: "practice",
             },
           },
           About: {
             screens: {
-              AboutScreen: "about"
-            }
+              AboutScreen: "about",
+            },
           },
         },
       },
-      NotFound: '*',
+      NotFound: "*",
     },
   },
 };

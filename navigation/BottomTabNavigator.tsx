@@ -12,12 +12,14 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import LearnScreen from "../screens/LearnScreen";
 import TutorsScreen from "../screens/TutorsScreen";
+import PracticeScreen from "../screens/PracticeScreen";
 import AboutScreen from "../screens/AboutScreen";
 import {
   BottomTabParamList,
   LearnParamList,
   TutorsParamList,
   AboutParamList,
+  PracticeParamList,
 } from "../types";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -48,6 +50,7 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
+      <BottomTab.Screen name="Practice" component={PracticeNavigator} />
       <BottomTab.Screen name="About" component={AboutNavigator} />
     </BottomTab.Navigator>
   );
@@ -62,13 +65,23 @@ function TabBarIcon(props: {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
+const defaultScreenOptions = () => {
+  const colorScheme = useColorScheme();
+  return {
+    headerStyle: {
+      backgroundColor: Colors[colorScheme].tint,
+    },
+    headerTintColor: Colors[colorScheme].textOnTint,
+  };
+};
+
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const LearnStack = createStackNavigator<LearnParamList>();
 
 function LearnNavigator() {
   return (
-    <LearnStack.Navigator>
+    <LearnStack.Navigator screenOptions={defaultScreenOptions}>
       <LearnStack.Screen
         name="LearnScreen"
         component={LearnScreen}
@@ -82,7 +95,7 @@ const TutorsStack = createStackNavigator<TutorsParamList>();
 
 function TutorsNavigator() {
   return (
-    <TutorsStack.Navigator>
+    <TutorsStack.Navigator screenOptions={defaultScreenOptions}>
       <TutorsStack.Screen
         name="TutorsScreen"
         component={TutorsScreen}
@@ -92,10 +105,22 @@ function TutorsNavigator() {
   );
 }
 
+const PracticeStack = createStackNavigator<PracticeParamList>();
+
+const PracticeNavigator = () => (
+  <PracticeStack.Navigator screenOptions={defaultScreenOptions}>
+    <PracticeStack.Screen
+      name="PracticeScreen"
+      component={PracticeScreen}
+      options={{ headerTitle: "Practice" }}
+    />
+  </PracticeStack.Navigator>
+);
+
 const AboutStack = createStackNavigator<AboutParamList>();
 
 const AboutNavigator = () => (
-  <AboutStack.Navigator>
+  <AboutStack.Navigator screenOptions={defaultScreenOptions}>
     <AboutStack.Screen
       name="AboutScreen"
       component={AboutScreen}
