@@ -12,15 +12,20 @@ export default {
     screens: {
       Root: {
         screens: {
-          TabOne: {
+          Learn: {
             screens: {
-              TabOneScreen: 'one',
+              LearnScreen: 'one',
             },
           },
-          TabTwo: {
+          Tutors: {
             screens: {
-              TabTwoScreen: 'two',
+              TutorsScreen: 'two',
             },
+          },
+          About: {
+            screens: {
+              AboutScreen: "about"
+            }
           },
         },
       },
