@@ -85,7 +85,7 @@ function LearnNavigator() {
       <LearnStack.Screen
         name="LearnScreen"
         component={LearnScreen}
-        options={{ headerTitle: "Tab One Title" }}
+        options={{ headerTitle: "Learn" }}
       />
     </LearnStack.Navigator>
   );
@@ -99,7 +99,7 @@ function TutorsNavigator() {
       <TutorsStack.Screen
         name="TutorsScreen"
         component={TutorsScreen}
-        options={{ headerTitle: "Tab Two Title" }}
+        options={{ headerTitle: "Tutors" }}
       />
     </TutorsStack.Navigator>
   );
