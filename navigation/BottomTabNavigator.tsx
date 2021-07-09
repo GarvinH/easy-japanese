@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
@@ -36,9 +36,7 @@ export default function BottomTabNavigator() {
         name="Learn"
         component={LearnNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
         }}
       />
       <BottomTab.Screen
@@ -46,12 +44,26 @@ export default function BottomTabNavigator() {
         component={TutorsNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+            <TabBarIcon2 name="chalkboard-teacher" color={color} />
           ),
         }}
       />
-      <BottomTab.Screen name="Practice" component={PracticeNavigator} />
-      <BottomTab.Screen name="About" component={AboutNavigator} />
+      <BottomTab.Screen
+        name="Practice"
+        component={PracticeNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="play" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="About"
+        component={AboutNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="info-circle" color={color} />
+          ),
+        }}
+      />
     </BottomTab.Navigator>
   );
 }
@@ -59,10 +71,17 @@ export default function BottomTabNavigator() {
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof Ionicons>["name"];
+  name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
 }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+}
+
+function TabBarIcon2(props: {
+  name: React.ComponentProps<typeof FontAwesome5>["name"];
+  color: string;
+}) {
+  return <FontAwesome5 size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 const defaultScreenOptions = () => {
