@@ -24,7 +24,7 @@ const LikeableCard = ({ liked, content }: LikeableCardProps) => {
       ) : (
         <FontAwesome name="heart-o" size={35} style={styles.heartIcon} />
       )}
-      <Card.Content>
+      <Card.Content style={{paddingTop: 5,}}>
         {content}
       </Card.Content>
     </Card>
