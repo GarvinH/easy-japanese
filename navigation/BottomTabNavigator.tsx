@@ -13,6 +13,7 @@ import useColorScheme from "../hooks/useColorScheme";
 import LearnScreen from "../screens/LearnScreen";
 import TutorsScreen from "../screens/TutorsScreen";
 import PracticeScreen from "../screens/PracticeScreen";
+import CardSelectedScreen from "../screens/CardSelectedScreen";
 import AboutScreen from "../screens/AboutScreen";
 import {
   BottomTabParamList,
@@ -84,23 +85,21 @@ function TabBarIcon2(props: {
   return <FontAwesome5 size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
-const defaultScreenOptions = () => {
-  const colorScheme = useColorScheme();
-  return {
-    headerStyle: {
-      backgroundColor: Colors[colorScheme].tint,
-    },
-    headerTintColor: Colors[colorScheme].textOnTint,
-  };
-};
-
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const LearnStack = createStackNavigator<LearnParamList>();
 
 function LearnNavigator() {
+  const colorScheme = useColorScheme();
   return (
-    <LearnStack.Navigator screenOptions={defaultScreenOptions}>
+    <LearnStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors[colorScheme].tint,
+        },
+        headerTintColor: Colors[colorScheme].textOnTint,
+      }}
+    >
       <LearnStack.Screen
         name="LearnScreen"
         component={LearnScreen}
@@ -113,8 +112,16 @@ function LearnNavigator() {
 const TutorsStack = createStackNavigator<TutorsParamList>();
 
 function TutorsNavigator() {
+  const colorScheme = useColorScheme();
   return (
-    <TutorsStack.Navigator screenOptions={defaultScreenOptions}>
+    <TutorsStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors[colorScheme].tint,
+        },
+        headerTintColor: Colors[colorScheme].textOnTint,
+      }}
+    >
       <TutorsStack.Screen
         name="TutorsScreen"
         component={TutorsScreen}
@@ -126,24 +133,50 @@ function TutorsNavigator() {
 
 const PracticeStack = createStackNavigator<PracticeParamList>();
 
-const PracticeNavigator = () => (
-  <PracticeStack.Navigator screenOptions={defaultScreenOptions}>
-    <PracticeStack.Screen
-      name="PracticeScreen"
-      component={PracticeScreen}
-      options={{ headerTitle: "Practice" }}
-    />
-  </PracticeStack.Navigator>
-);
+const PracticeNavigator = () => {
+  const colorScheme = useColorScheme();
+  return (
+    <PracticeStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors[colorScheme].tint,
+        },
+        headerTintColor: Colors[colorScheme].textOnTint,
+      }}
+    >
+      <PracticeStack.Screen
+        name="PracticeScreen"
+        component={PracticeScreen}
+        options={{ headerTitle: "Practice" }}
+      />
+      <PracticeStack.Screen
+        name="PracticeSelectedScreen"
+        component={CardSelectedScreen}
+        options={{ headerTitle: "Practice" }}
+      />
+    </PracticeStack.Navigator>
+  );
+};
 
 const AboutStack = createStackNavigator<AboutParamList>();
 
-const AboutNavigator = () => (
-  <AboutStack.Navigator screenOptions={defaultScreenOptions}>
-    <AboutStack.Screen
-      name="AboutScreen"
-      component={AboutScreen}
-      options={{ headerTitle: "About Easy Japanese" }}
-    />
-  </AboutStack.Navigator>
-);
+const AboutNavigator = () => {
+  const colorScheme = useColorScheme();
+
+  return (
+    <AboutStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors[colorScheme].tint,
+        },
+        headerTintColor: Colors[colorScheme].textOnTint,
+      }}
+    >
+      <AboutStack.Screen
+        name="AboutScreen"
+        component={AboutScreen}
+        options={{ headerTitle: "About Easy Japanese" }}
+      />
+    </AboutStack.Navigator>
+  );
+};

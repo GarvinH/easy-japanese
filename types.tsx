@@ -25,6 +25,7 @@ export type TutorsParamList = {
 
 export type PracticeParamList = {
   PracticeScreen: undefined;
+  PracticeSelectedScreen: undefined;
 }
 
 export type AboutParamList = {

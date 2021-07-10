@@ -14,17 +14,18 @@ export default {
         screens: {
           Learn: {
             screens: {
-              LearnScreen: "one",
+              LearnScreen: "learn",
             },
           },
           Tutors: {
             screens: {
-              TutorsScreen: "two",
+              TutorsScreen: "tutor",
             },
           },
           Practice: {
             screens: {
               PracticeScreen: "practice",
+              PracticeSelectedScreen: "practice-selected"
             },
           },
           About: {

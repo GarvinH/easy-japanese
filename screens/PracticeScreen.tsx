@@ -1,16 +1,25 @@
 import * as React from "react";
-import { StyleSheet, Dimensions, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-import globalStyles from "../constants/Styles"
+import globalStyles from "../constants/Styles";
 
 import { Text, View } from "../components/Themed";
 import GameCard from "../components/Cards/GameCard";
 
 export default function LearnScreen() {
+  const navigation = useNavigation();
   return (
     <View style={globalStyles.container}>
       <ScrollView>
-        <GameCard />
+        <TouchableOpacity onPress={() => navigation.navigate("PracticeSelectedScreen")}>
+          <GameCard />
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );

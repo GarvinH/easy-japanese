@@ -1,8 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import LikeableCard from "./LikeableCard";
 import { Title, Avatar } from "react-native-paper";
 import { Rating } from "react-native-ratings";
+import _ from "lodash"
+
+import LikeableCard from "./LikeableCard";
 
 export interface ContentProps {
   name: string;
@@ -36,7 +38,7 @@ const Content = ({name, hourly, trial, languages} : ContentProps) => {
       </View>
       <View>
         <Text style={{ fontWeight: "bold" }}>Also Speaks</Text>
-        <Text>{languages[0]}</Text>
+        <Text>{_.map(languages, (language, index) => language + (index+1 === languages.length ? "" : ", "))}</Text>
       </View>
     </View>
   );
