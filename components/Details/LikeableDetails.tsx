@@ -9,37 +9,33 @@ import { Title, Avatar } from "react-native-paper";
 import Rating from "../Rating";
 
 interface LikeableDetailsProps {
-  liked: boolean;
+  liked?: boolean;
+  header: React.ReactElement;
+  body?: React.ReactElement;
 }
 
-const LikeableDetails = ({ liked }: LikeableDetailsProps) => {
+const LikeableDetails = ({ liked, header, body }: LikeableDetailsProps) => {
   const colorScheme = useColorScheme();
   return (
-    <View>
-      <View style={{ flex: 1 }}>
-        <View style={styles.header}>
-          <View style={styles.title}>
-            <Avatar.Image
-              source={require("../../assets/images/tutor.png")}
-              style={{ marginRight: 10, marginTop: 10 }}
-            />
-            <View style={{ backgroundColor: "pink" }}>
-              <Title>Title test</Title>
-              <Rating />
-            </View>
-          </View>
-          <View>
-            {liked ? (
-              <FontAwesome
-                name="heart"
-                size={32}
-                color={colors[colorScheme].tint}
-              />
-            ) : (
-              <FontAwesome name="heart-o" size={35} />
-            )}
-          </View>
+    <View style={{ flex: 1 }}>
+      <View style={styles.header}>
+        <View style={styles.headerContent}>
+          {header}
         </View>
+        <View style={{ flex: 1, alignItems: "flex-end" }}>
+          {liked ? (
+            <FontAwesome
+              name="heart"
+              size={32}
+              color={colors[colorScheme].tint}
+            />
+          ) : (
+            <FontAwesome name="heart-o" size={35} />
+          )}
+        </View>
+      </View>
+      <View style={styles.body}>
+          {body}
       </View>
     </View>
   );
@@ -49,15 +45,15 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     flexDirection: "row",
-    // alignItems: "baseline",
     justifyContent: "space-between",
-    backgroundColor: "pink",
   },
-  title: {
-    flex: 1,
-    flexDirection: "row",
+  headerContent: {
+    flex: 3,
     marginBottom: 10,
   },
+  body: {
+      flex: 1,
+  }
 });
 
 export default LikeableDetails;

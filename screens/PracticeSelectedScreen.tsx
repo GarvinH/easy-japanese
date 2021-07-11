@@ -6,7 +6,8 @@ import globalStyles from "../constants/Styles"
 import { Text, View } from "../components/Themed";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { PracticeParamList } from "../types";
-import LikeableDetails from "../components/Details/LikeableDetails";
+import GameDetails from "../components/Details/GameDetails";
+import TutorDetails from "../components/Details/TutorDetails";
 
 export default function PracticeSelectedScreen() {
   const route = useRoute<RouteProp<PracticeParamList, "PracticeSelectedScreen">>();
@@ -14,8 +15,8 @@ export default function PracticeSelectedScreen() {
   // const { content } = route.params;
   return (
     <View style={globalStyles.container}>
-      <LikeableDetails />
-      {/* {content} */}
+      {/* <GameDetails /> */}
+      <TutorDetails />
     </View>
   );
 }
