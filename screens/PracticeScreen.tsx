@@ -20,7 +20,7 @@ export default function LearnScreen() {
   return (
     <View style={globalStyles.container}>
       <ScrollView>
-        <TouchableOpacity onPress={() => navigation.navigate("GameScreen")}>
+        <TouchableOpacity onPress={() => navigation.navigate("PracticeSelectedScreen")}>
           <GameCard />
         </TouchableOpacity>
       </ScrollView>

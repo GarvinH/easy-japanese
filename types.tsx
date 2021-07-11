@@ -25,7 +25,7 @@ export type TutorsParamList = {
 
 export type PracticeParamList = {
   PracticeScreen: undefined;
-  PracticeSelectedScreen: { content: React.ReactElement };
+  PracticeSelectedScreen: { content: React.ReactElement } | undefined;
   GameScreen: undefined;
 }
 
