@@ -23,6 +23,7 @@ import {
   PracticeParamList,
 } from "../types";
 import GameScreen from "../screens/GameScreen";
+import TutorSelectedScreen from "../screens/TutorSelectedScreen";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -126,6 +127,11 @@ function TutorsNavigator() {
       <TutorsStack.Screen
         name="TutorsScreen"
         component={TutorsScreen}
+        options={{ headerTitle: "Tutors" }}
+      />
+      <TutorsStack.Screen
+        name="TutorSelectedScreen"
+        component={TutorSelectedScreen}
         options={{ headerTitle: "Tutors" }}
       />
     </TutorsStack.Navigator>
