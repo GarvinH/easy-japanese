@@ -6,7 +6,7 @@ import { StyleSheet, View } from "react-native";
 import colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
 import { Title, Avatar } from "react-native-paper";
-import { Rating } from "react-native-ratings";
+import Rating from "../Rating";
 
 interface LikeableDetailsProps {
   liked: boolean;
@@ -23,9 +23,9 @@ const LikeableDetails = ({ liked }: LikeableDetailsProps) => {
               source={require("../../assets/images/tutor.png")}
               style={{ marginRight: 10, marginTop: 10 }}
             />
-            <View style={{backgroundColor: "pink"}}>
+            <View style={{ backgroundColor: "pink" }}>
               <Title>Title test</Title>
-              <Rating imageSize={20} readonly/>
+              <Rating />
             </View>
           </View>
           <View>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // alignItems: "baseline",
     justifyContent: "space-between",
-    backgroundColor: "pink"    
+    backgroundColor: "pink",
   },
   title: {
     flex: 1,

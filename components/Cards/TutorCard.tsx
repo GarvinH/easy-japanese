@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Title, Avatar } from "react-native-paper";
-import { Rating } from "react-native-ratings";
-import _ from "lodash"
+import _ from "lodash";
 
 import LikeableCard from "./LikeableCard";
+import Rating from "../Rating";
 
 export interface ContentProps {
   name: string;
@@ -13,7 +13,7 @@ export interface ContentProps {
   languages: string[];
 }
 
-const Content = ({name, hourly, trial, languages} : ContentProps) => {
+const Content = ({ name, hourly, trial, languages }: ContentProps) => {
   return (
     <View>
       <View style={styles.title}>
@@ -23,7 +23,7 @@ const Content = ({name, hourly, trial, languages} : ContentProps) => {
         />
         <View>
           <Title>{name}</Title>
-          <Rating imageSize={20} readonly />
+          <Rating />
         </View>
       </View>
       <View style={styles.costTable}>
@@ -38,7 +38,13 @@ const Content = ({name, hourly, trial, languages} : ContentProps) => {
       </View>
       <View>
         <Text style={{ fontWeight: "bold" }}>Also Speaks</Text>
-        <Text>{_.map(languages, (language, index) => language + (index+1 === languages.length ? "" : ", "))}</Text>
+        <Text>
+          {_.map(
+            languages,
+            (language, index) =>
+              language + (index + 1 === languages.length ? "" : ", ")
+          )}
+        </Text>
       </View>
     </View>
   );
@@ -48,8 +54,8 @@ const template = {
   name: "Tutor Name",
   hourly: 19.99,
   trial: 5.99,
-  languages: ["English"]
-}
+  languages: ["English"],
+};
 
 const TutorCard = () => {
   return <LikeableCard content={<Content {...template} />} />;
