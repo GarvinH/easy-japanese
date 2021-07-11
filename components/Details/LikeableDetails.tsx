@@ -19,10 +19,8 @@ const LikeableDetails = ({ liked, header, body }: LikeableDetailsProps) => {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.header}>
-        <View style={styles.headerContent}>
-          {header}
-        </View>
-        <View style={{ flex: 1, alignItems: "flex-end" }}>
+        <View style={styles.headerContent}>{header}</View>
+        <View>
           {liked ? (
             <FontAwesome
               name="heart"
@@ -34,26 +32,23 @@ const LikeableDetails = ({ liked, header, body }: LikeableDetailsProps) => {
           )}
         </View>
       </View>
-      <View style={styles.body}>
-          {body}
-      </View>
+      <View style={styles.body}>{body}</View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
-    flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: "flex-start",
   },
   headerContent: {
-    flex: 3,
+    flexGrow: 1,
     marginBottom: 10,
   },
   body: {
-      flex: 1,
-  }
+    flex: 1,
+  },
 });
 
 export default LikeableDetails;

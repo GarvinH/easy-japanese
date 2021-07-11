@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import LikeableDetails from "./LikeableDetails";
 import { Paragraph, Title } from "react-native-paper";
 
-const Header = () => <Title style={{ fontSize: 30, }}>Game Title</Title>;
+const Header = () => <Title style={{ fontSize: 30 }}>Game Title</Title>;
 
 const Body = () => (
   <Paragraph>
@@ -17,6 +17,8 @@ const Body = () => (
   </Paragraph>
 );
 
-const GameDetails = () => <LikeableDetails liked header={<Header />} body={<Body />} />;
+const GameDetails = () => (
+  <LikeableDetails liked header={<Header />} body={<Body />} />
+);
 
 export default GameDetails;

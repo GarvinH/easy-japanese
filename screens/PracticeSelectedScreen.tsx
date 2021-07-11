@@ -15,8 +15,8 @@ export default function PracticeSelectedScreen() {
   // const { content } = route.params;
   return (
     <View style={globalStyles.container}>
-      {/* <GameDetails /> */}
-      <TutorDetails />
+      <GameDetails />
+      {/* <TutorDetails /> */}
     </View>
   );
 }

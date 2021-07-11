@@ -6,11 +6,8 @@ import LikeableDetails from "./LikeableDetails";
 
 const TutorHeader = () => (
   <View style={styles.header}>
-    <Avatar.Image
-      source={require("../../assets/images/tutor.png")}
-      style={{ marginRight: 10, marginTop: 10 }}
-    />
-    <View>
+    <Avatar.Image source={require("../../assets/images/tutor.png")} />
+    <View style={{ flex: 1 }}>
       <Title>Title test test test test test test test test test test</Title>
       <Rating />
     </View>
@@ -21,7 +18,6 @@ const TutorDetails = () => <LikeableDetails liked header={<TutorHeader />} />;
 
 const styles = StyleSheet.create({
   header: {
-    flex: 1,
     flexDirection: "row",
   },
 });
