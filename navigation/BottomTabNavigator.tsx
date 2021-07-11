@@ -13,7 +13,7 @@ import useColorScheme from "../hooks/useColorScheme";
 import LearnScreen from "../screens/LearnScreen";
 import TutorsScreen from "../screens/TutorsScreen";
 import PracticeScreen from "../screens/PracticeScreen";
-import CardSelectedScreen from "../screens/CardSelectedScreen";
+import PracticeSelectedScreen from "../screens/PracticeSelectedScreen";
 import AboutScreen from "../screens/AboutScreen";
 import {
   BottomTabParamList,
@@ -22,6 +22,7 @@ import {
   AboutParamList,
   PracticeParamList,
 } from "../types";
+import GameScreen from "../screens/GameScreen";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -151,9 +152,12 @@ const PracticeNavigator = () => {
       />
       <PracticeStack.Screen
         name="PracticeSelectedScreen"
-        component={CardSelectedScreen}
+        component={PracticeSelectedScreen}
         options={{ headerTitle: "Practice" }}
       />
+      <PracticeStack.Screen name="GameScreen"
+        component={GameScreen}
+        options={{ headerTitle: "Practice" }}/>
     </PracticeStack.Navigator>
   );
 };

@@ -25,7 +25,8 @@ export default {
           Practice: {
             screens: {
               PracticeScreen: "practice",
-              PracticeSelectedScreen: "practice-selected"
+              PracticeSelectedScreen: "practice-selected",
+              GameScreen: "game",
             },
           },
           About: {

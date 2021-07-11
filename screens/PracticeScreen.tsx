@@ -11,13 +11,16 @@ import globalStyles from "../constants/Styles";
 
 import { Text, View } from "../components/Themed";
 import GameCard from "../components/Cards/GameCard";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { PracticeParamList } from "../types";
+import LikeableDetails from "../components/Details/LikeableDetails";
 
 export default function LearnScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<PracticeParamList, "PracticeScreen">>();
   return (
     <View style={globalStyles.container}>
       <ScrollView>
-        <TouchableOpacity onPress={() => navigation.navigate("PracticeSelectedScreen")}>
+        <TouchableOpacity onPress={() => navigation.navigate("GameScreen")}>
           <GameCard />
         </TouchableOpacity>
       </ScrollView>
