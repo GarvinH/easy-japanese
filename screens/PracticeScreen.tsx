@@ -4,6 +4,7 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -13,16 +14,23 @@ import { Text, View } from "../components/Themed";
 import GameCard from "../components/Cards/GameCard";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PracticeParamList } from "../types";
-import LikeableDetails from "../components/Details/LikeableDetails";
 
 export default function LearnScreen() {
-  const navigation = useNavigation<StackNavigationProp<PracticeParamList, "PracticeScreen">>();
+  const navigation =
+    useNavigation<StackNavigationProp<PracticeParamList, "PracticeScreen">>();
   return (
     <View style={globalStyles.container}>
       <ScrollView>
-        <TouchableOpacity onPress={() => navigation.navigate("PracticeSelectedScreen")}>
-          <GameCard />
-        </TouchableOpacity>
+        <FlatList
+          data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("PracticeSelectedScreen")}
+            >
+              <GameCard />
+            </TouchableOpacity>
+          )}
+        />
       </ScrollView>
     </View>
   );

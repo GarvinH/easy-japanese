@@ -1,8 +1,9 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import useColorScheme from "../hooks/useColorScheme";
 import colors from "../constants/Colors";
+import Styles from "../constants/Styles";
 
 interface LikeableProps {
   liked?: boolean;
@@ -14,7 +15,7 @@ interface LikeableProps {
 const Likeable = ({ liked, header, body, footer }: LikeableProps) => {
   const colorScheme = useColorScheme();
   return (
-    <View style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1 }}>
       <View style={styles.header}>
         <View style={styles.headerContent}>{header}</View>
         <View style={{ marginLeft: 10 }}>
@@ -29,8 +30,9 @@ const Likeable = ({ liked, header, body, footer }: LikeableProps) => {
           )}
         </View>
       </View>
-      <View style={styles.body}>{body}</View>
-    </View>
+      <View>{body}</View>
+      {footer && <View style={styles.footer}>{footer}</View>}
+    </ScrollView>
   );
 };
 
@@ -43,8 +45,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     marginBottom: 10,
   },
-  body: {
+  footer: {
     flex: 1,
+    justifyContent: "flex-end",
+    marginTop: 50,
   },
 });
 

@@ -25,7 +25,7 @@ const Header = ({ name }: HeaderProps) => (
       style={{ marginRight: 10 }}
     />
     <View style={{ flex: 1 }}>
-      <Title>{name}</Title>
+      <Title style={{ lineHeight: 20 }}>{name}</Title>
       <Rating />
     </View>
   </View>

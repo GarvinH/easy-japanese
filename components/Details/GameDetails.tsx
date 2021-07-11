@@ -2,6 +2,10 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import Likeable from "../Likeable";
 import { Paragraph, Title } from "react-native-paper";
+import Button from "../Button";
+import { useNavigation } from "@react-navigation/core";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { PracticeParamList } from "../../types";
 
 const Header = () => <Title style={{ fontSize: 30 }}>Game Title</Title>;
 
@@ -17,8 +21,25 @@ const Body = () => (
   </Paragraph>
 );
 
+const Footer = () => {
+  const navigation =
+    useNavigation<StackNavigationProp<PracticeParamList, "PracticeSelectedScreen">>();
+  return (
+    <View style={styles.footer}>
+      <Button text="Practice" icon="play" onPress={() => navigation.navigate("GameScreen")}/>
+      <Button text="Results" icon="chart-line" onPress={() => {return}} />
+    </View>
+  );
+};
+
 const GameDetails = () => (
-  <Likeable liked header={<Header />} body={<Body />} />
+  <Likeable liked header={<Header />} body={<Body />} footer={<Footer />} />
 );
+
+const styles = StyleSheet.create({
+  footer: {
+    flexDirection: "row",
+  },
+});
 
 export default GameDetails;
