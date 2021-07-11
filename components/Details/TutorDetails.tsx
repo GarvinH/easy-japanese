@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import Rating from "../Rating";
 import { Title, Avatar } from "react-native-paper";
-import LikeableDetails from "./LikeableDetails";
+import Likeable from "../Likeable";
 
 const TutorHeader = () => (
   <View style={styles.header}>
@@ -14,7 +14,7 @@ const TutorHeader = () => (
   </View>
 );
 
-const TutorDetails = () => <LikeableDetails liked header={<TutorHeader />} />;
+const TutorDetails = () => <Likeable liked header={<TutorHeader />} />;
 
 const styles = StyleSheet.create({
   header: {

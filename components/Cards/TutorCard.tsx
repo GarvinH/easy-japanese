@@ -6,26 +6,34 @@ import _ from "lodash";
 import LikeableCard from "./LikeableCard";
 import Rating from "../Rating";
 
-export interface ContentProps {
+export type ContentProps = HeaderProps & BodyProps;
+
+interface HeaderProps {
   name: string;
+}
+
+interface BodyProps {
   hourly: number;
   trial: number;
   languages: string[];
 }
 
-const Content = ({ name, hourly, trial, languages }: ContentProps) => {
+const Header = ({ name }: HeaderProps) => (
+  <View style={styles.title}>
+    <Avatar.Image
+      source={require("../../assets/images/tutor.png")}
+      style={{ marginRight: 10 }}
+    />
+    <View style={{ flex: 1 }}>
+      <Title>{name}</Title>
+      <Rating />
+    </View>
+  </View>
+);
+
+const Body = ({ hourly, trial, languages }: BodyProps) => {
   return (
     <View>
-      <View style={styles.title}>
-        <Avatar.Image
-          source={require("../../assets/images/tutor.png")}
-          style={{ marginRight: 10, marginTop: 10 }}
-        />
-        <View>
-          <Title>{name}</Title>
-          <Rating />
-        </View>
-      </View>
       <View style={styles.costTable}>
         <View style={{ marginRight: 10 }}>
           <Text style={{ fontWeight: "bold" }}>Hourly Rate</Text>
@@ -50,20 +58,24 @@ const Content = ({ name, hourly, trial, languages }: ContentProps) => {
   );
 };
 
-const template = {
-  name: "Tutor Name",
+const template: ContentProps = {
+  name: "Tutor Name test test test test test test",
   hourly: 19.99,
   trial: 5.99,
   languages: ["English"],
 };
 
 const TutorCard = () => {
-  return <LikeableCard content={<Content {...template} />} />;
+  return (
+    <LikeableCard
+      header={<Header {...template} />}
+      body={<Body {...template} />}
+    />
+  );
 };
 
 const styles = StyleSheet.create({
   title: {
-    flex: 1,
     flexDirection: "row",
     marginBottom: 10,
   },

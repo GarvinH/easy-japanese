@@ -1,26 +1,23 @@
 import React from "react";
+import { View, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
-// import { View, Text } from "../Themed";
+import useColorScheme from "../hooks/useColorScheme";
+import colors from "../constants/Colors";
 
-import colors from "../../constants/Colors";
-import useColorScheme from "../../hooks/useColorScheme";
-import { Title, Avatar } from "react-native-paper";
-import Rating from "../Rating";
-
-interface LikeableDetailsProps {
+interface LikeableProps {
   liked?: boolean;
   header: React.ReactElement;
   body?: React.ReactElement;
+  footer?: React.ReactElement;
 }
 
-const LikeableDetails = ({ liked, header, body }: LikeableDetailsProps) => {
+const Likeable = ({ liked, header, body, footer }: LikeableProps) => {
   const colorScheme = useColorScheme();
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.header}>
         <View style={styles.headerContent}>{header}</View>
-        <View>
+        <View style={{ marginLeft: 10 }}>
           {liked ? (
             <FontAwesome
               name="heart"
@@ -51,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LikeableDetails;
+export default Likeable;

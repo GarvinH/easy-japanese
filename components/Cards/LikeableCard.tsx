@@ -4,41 +4,37 @@ import { Card } from "react-native-paper";
 import { FontAwesome } from "@expo/vector-icons";
 import useColorScheme from "../../hooks/useColorScheme";
 import colors from "../../constants/Colors";
+import Likeable from "../Likeable";
 
 interface LikeableCardProps {
   liked?: boolean;
-  content: any;
+  header: React.ReactElement;
+  body?: React.ReactElement;
 }
 
-const LikeableCard = ({ liked, content }: LikeableCardProps) => {
+const LikeableCard = (props: LikeableCardProps) => {
   const colorScheme = useColorScheme();
   return (
-    <Card style={styles.card} mode="outlined">
-      {liked ? (
-        <FontAwesome
-          name="heart"
-          size={32}
-          style={styles.heartIcon}
-          color={colors[colorScheme].tint}
-        />
-      ) : (
-        <FontAwesome name="heart-o" size={35} style={styles.heartIcon} />
-      )}
-      <Card.Content style={{paddingTop: 5,}}>
-        {content}
+    <Card mode="outlined">
+      <Card.Content>
+        <Likeable {...props} />
+          
       </Card.Content>
     </Card>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    minHeight: 100,
+  header: {
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
-  heartIcon: {
-    position: "absolute",
-    top: 10,
-    right: 10,
+  headerContent: {
+    flexGrow: 1,
+    marginBottom: 10,
+  },
+  body: {
+    flex: 1,
   },
 });
 
