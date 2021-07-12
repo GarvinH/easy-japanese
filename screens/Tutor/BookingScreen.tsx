@@ -24,10 +24,10 @@ const formSchema = Yup.object({
 const ResultsScreen = () => {
   const [showDatePicker, setShowDatePicker] = useState<boolean>();
 
-  const minDate = new Date()
-  const maxDate = new Date()
-  minDate.setDate(new Date().getDate() + 7)
-  maxDate.setMonth(new Date().getMonth() + 1)
+  const minDate = new Date();
+  const maxDate = new Date();
+  minDate.setDate(new Date().getDate() + 7);
+  maxDate.setMonth(new Date().getMonth() + 1);
 
   return (
     <View style={{ ...globalStyles.container }}>
@@ -36,32 +36,45 @@ const ResultsScreen = () => {
         validationSchema={formSchema}
         onSubmit={(values) => console.log(values)}
       >
-        {({ handleChange, handleBlur, handleSubmit, values }) => (
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+        }) => (
           <View style={{ flex: 1 }}>
             <Title>Name</Title>
-            <TextInput
-              onChangeText={handleChange("name")}
-              onBlur={handleBlur("name")}
-              value={values.name}
-              theme={{ colors: { primary: "red" } }}
-              style={{ marginBottom: 20 }}
-              placeholder="Ex: John Smith"
-            />
+            <View>
+              <TextInput
+                onChangeText={handleChange("name")}
+                onBlur={handleBlur("name")}
+                value={values.name}
+                theme={{ colors: { primary: "red" } }}
+                placeholder="Ex: John Smith"
+                error={!!(errors.name && touched.name)}
+              />
+              <Paragraph>{touched.name && _.capitalize(errors.name)}</Paragraph>
+            </View>
             <Title>Email</Title>
-            <TextInput
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-              value={values.email}
-              theme={{ colors: { primary: "red" } }}
-              style={{ marginBottom: 20 }}
-              placeholder="Ex: example@email.com"
-            />
+            <View>
+              <TextInput
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                value={values.email}
+                theme={{ colors: { primary: "red" } }}
+                placeholder="Ex: example@email.com"
+              />
+              <Paragraph>{touched.email && _.capitalize(errors.email)}</Paragraph>
+            </View>
             <Title>Date</Title>
             <TextInput value={values.bookDate} disabled />
             <Button
               text="Select Date"
               onPress={() => setShowDatePicker(true)}
             />
+            <Paragraph>{touched.bookDate && errors.bookDate && "Date is a required field."}</Paragraph>
             {showDatePicker && (
               <RNDateTimePicker
                 minimumDate={minDate}
@@ -76,7 +89,7 @@ const ResultsScreen = () => {
                 display="default"
                 onChange={(event: any, date: any) => {
                   setShowDatePicker(false);
-                  handleChange("bookDate")(new Date(date).toDateString());
+                  date && handleChange("bookDate")(new Date(date).toDateString());
                 }}
               />
             )}
