@@ -20,7 +20,6 @@ export default function LearnScreen() {
     useNavigation<StackNavigationProp<PracticeParamList, "PracticeScreen">>();
   return (
     <View style={globalStyles.container}>
-      <ScrollView>
         <FlatList
           data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]}
           renderItem={({ item }) => (
@@ -31,7 +30,6 @@ export default function LearnScreen() {
             </TouchableOpacity>
           )}
         />
-      </ScrollView>
     </View>
   );
 }

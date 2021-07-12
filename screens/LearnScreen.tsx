@@ -1,6 +1,7 @@
 import * as React from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 import globalStyles from "../constants/Styles";
+import { View } from "../components/Themed";
 
 import ArticleSection, {
   ArticleSectionProps,
