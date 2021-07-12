@@ -28,16 +28,20 @@ const Footer = () => {
     >();
   return (
     <View style={styles.footer}>
-      <Button
-        text="Practice"
-        icon="play"
-        onPress={() => navigation.navigate("GameScreen")}
-      />
-      <Button
-        text="Results"
-        icon="chart-line"
-        onPress={() => navigation.navigate("ResultsScreen")}
-      />
+      <View style={styles.buttonContainer}>
+        <Button
+          text="Practice"
+          icon="play"
+          onPress={() => navigation.navigate("GameScreen")}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          text="Results"
+          icon="chart-line"
+          onPress={() => navigation.navigate("ResultsScreen")}
+        />
+      </View>
     </View>
   );
 };
@@ -49,6 +53,10 @@ const GameDetails = () => (
 const styles = StyleSheet.create({
   footer: {
     flexDirection: "row",
+  },
+  buttonContainer: {
+    flex: 1,
+    marginHorizontal: 10,
   },
 });
 

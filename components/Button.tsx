@@ -7,17 +7,17 @@ import colors from "../constants/Colors";
 interface BtnProps {
   text: string;
   icon?: string;
-  onPress: () => void;
+  onPress: (() => void);
+  outlined?: boolean;
 }
 
-const Btn = ({ text, icon, onPress }: BtnProps) => {
+const Btn = ({ text, icon, onPress, outlined }: BtnProps) => {
   const colorScheme = useColorScheme();
   return (
     <Button
-      mode="contained"
+      mode={outlined ? "outlined" : "contained"}
       icon={icon}
       color={colors[colorScheme].tint}
-      style={{ flex: 1, marginHorizontal: 10 }}
       onPress={onPress}
     >
       {text}
