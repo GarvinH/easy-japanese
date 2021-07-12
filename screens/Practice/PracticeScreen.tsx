@@ -8,12 +8,12 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import globalStyles from "../constants/Styles";
+import globalStyles from "../../constants/Styles";
 
-import { Text, View } from "../components/Themed";
-import GameCard from "../components/Cards/GameCard";
+import { Text, View } from "../../components/Themed";
+import GameCard from "../../components/Cards/GameCard";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { PracticeParamList } from "../types";
+import { PracticeParamList } from "../../types";
 
 export default function LearnScreen() {
   const navigation =

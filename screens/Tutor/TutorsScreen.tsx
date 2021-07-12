@@ -1,14 +1,14 @@
 import * as React from "react";
 import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
 
-import globalStyles from "../constants/Styles";
+import globalStyles from "../../constants/Styles";
 
-import TutorCard from "../components/Cards/TutorCard";
+import TutorCard from "../../components/Cards/TutorCard";
 
-import { Text, View } from "../components/Themed";
+import { Text, View } from "../../components/Themed";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { TutorsParamList } from "../types";
+import { TutorsParamList } from "../../types";
 
 export default function TutorsScreen() {
   const navigation =

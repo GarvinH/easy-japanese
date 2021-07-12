@@ -23,11 +23,21 @@ const Body = () => (
 
 const Footer = () => {
   const navigation =
-    useNavigation<StackNavigationProp<PracticeParamList, "PracticeSelectedScreen">>();
+    useNavigation<
+      StackNavigationProp<PracticeParamList, "PracticeSelectedScreen">
+    >();
   return (
     <View style={styles.footer}>
-      <Button text="Practice" icon="play" onPress={() => navigation.navigate("GameScreen")}/>
-      <Button text="Results" icon="chart-line" onPress={() => {return}} />
+      <Button
+        text="Practice"
+        icon="play"
+        onPress={() => navigation.navigate("GameScreen")}
+      />
+      <Button
+        text="Results"
+        icon="chart-line"
+        onPress={() => navigation.navigate("ResultsScreen")}
+      />
     </View>
   );
 };

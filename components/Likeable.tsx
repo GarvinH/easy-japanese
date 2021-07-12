@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import useColorScheme from "../hooks/useColorScheme";
 import colors from "../constants/Colors";
@@ -18,17 +18,19 @@ const Likeable = ({ liked, header, body, footer }: LikeableProps) => {
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.header}>
         <View style={styles.headerContent}>{header}</View>
-        <View style={{ marginLeft: 10 }}>
-          {liked ? (
-            <FontAwesome
-              name="heart"
-              size={32}
-              color={colors[colorScheme].tint}
-            />
-          ) : (
-            <FontAwesome name="heart-o" size={35} />
-          )}
-        </View>
+        <TouchableOpacity>
+          <View style={{ marginLeft: 10 }}>
+            {liked ? (
+              <FontAwesome
+                name="heart"
+                size={32}
+                color={colors[colorScheme].tint}
+              />
+            ) : (
+              <FontAwesome name="heart-o" size={35} />
+            )}
+          </View>
+        </TouchableOpacity>
       </View>
       <View>{body}</View>
       {footer && <View style={styles.footer}>{footer}</View>}

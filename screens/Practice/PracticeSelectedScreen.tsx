@@ -1,13 +1,13 @@
 import * as React from "react";
 import { StyleSheet, Dimensions, ScrollView } from "react-native";
 
-import globalStyles from "../constants/Styles"
+import globalStyles from "../../constants/Styles"
 
-import { Text, View } from "../components/Themed";
+import { Text, View } from "../../components/Themed";
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { PracticeParamList } from "../types";
-import GameDetails from "../components/Details/GameDetails";
-import TutorDetails from "../components/Details/TutorDetails";
+import { PracticeParamList } from "../../types";
+import GameDetails from "../../components/Details/GameDetails";
+import TutorDetails from "../../components/Details/TutorDetails";
 
 export default function PracticeSelectedScreen() {
   const route = useRoute<RouteProp<PracticeParamList, "PracticeSelectedScreen">>();

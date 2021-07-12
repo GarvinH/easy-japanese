@@ -28,6 +28,7 @@ export type PracticeParamList = {
   PracticeScreen: undefined;
   PracticeSelectedScreen: { content: React.ReactElement } | undefined;
   GameScreen: undefined;
+  ResultsScreen: undefined;
 }
 
 export type AboutParamList = {

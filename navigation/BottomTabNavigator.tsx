@@ -11,9 +11,9 @@ import * as React from "react";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import LearnScreen from "../screens/LearnScreen";
-import TutorsScreen from "../screens/TutorsScreen";
-import PracticeScreen from "../screens/PracticeScreen";
-import PracticeSelectedScreen from "../screens/PracticeSelectedScreen";
+import TutorsScreen from "../screens/Tutor/TutorsScreen";
+import PracticeScreen from "../screens/Practice/PracticeScreen";
+import PracticeSelectedScreen from "../screens/Practice/PracticeSelectedScreen";
 import AboutScreen from "../screens/AboutScreen";
 import {
   BottomTabParamList,
@@ -22,8 +22,9 @@ import {
   AboutParamList,
   PracticeParamList,
 } from "../types";
-import GameScreen from "../screens/GameScreen";
-import TutorSelectedScreen from "../screens/TutorSelectedScreen";
+import GameScreen from "../screens/Practice/GameScreen";
+import TutorSelectedScreen from "../screens/Tutor/TutorSelectedScreen";
+import ResultsScreen from "../screens/Practice/ResultsScreen";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -161,9 +162,16 @@ const PracticeNavigator = () => {
         component={PracticeSelectedScreen}
         options={{ headerTitle: "Practice" }}
       />
-      <PracticeStack.Screen name="GameScreen"
+      <PracticeStack.Screen
+        name="GameScreen"
         component={GameScreen}
-        options={{ headerTitle: "Practice" }}/>
+        options={{ headerTitle: "Practice" }}
+      />
+      <PracticeStack.Screen
+        name="ResultsScreen"
+        component={ResultsScreen}
+        options={{ headerTitle: "Results" }}
+      />
     </PracticeStack.Navigator>
   );
 };
