@@ -25,6 +25,7 @@ import {
 import GameScreen from "../screens/Practice/GameScreen";
 import TutorSelectedScreen from "../screens/Tutor/TutorSelectedScreen";
 import ResultsScreen from "../screens/Practice/ResultsScreen";
+import BookingScreen from "../screens/Tutor/BookingScreen"
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -134,6 +135,11 @@ function TutorsNavigator() {
         name="TutorSelectedScreen"
         component={TutorSelectedScreen}
         options={{ headerTitle: "Tutors" }}
+      />
+      <TutorsStack.Screen
+        name="BookingScreen"
+        component={BookingScreen}
+        options={{ headerTitle: "Booking" }}
       />
     </TutorsStack.Navigator>
   );

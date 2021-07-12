@@ -5,6 +5,9 @@ import { Title, Avatar, Paragraph } from "react-native-paper";
 import Likeable from "../Likeable";
 import dimensions from "../../constants/Layout";
 import Button from "../Button";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { TutorsParamList } from "../../types";
 
 const TutorHeader = () => <Title style={{ fontSize: 32 }}>Tutor's Name</Title>;
 
@@ -55,15 +58,21 @@ const Body = () => (
   </View>
 );
 
-const Footer = () => (
-  <Button
-    text="Book Now"
-    onPress={() => {
-      return;
-    }}
-    icon="calendar"
-  />
-);
+const Footer = () => {
+  const navigation =
+    useNavigation<
+      StackNavigationProp<TutorsParamList, "TutorSelectedScreen">
+    >();
+  return (
+    <Button
+      text="Book Now"
+      onPress={() => {
+        navigation.navigate("BookingScreen");
+      }}
+      icon="calendar"
+    />
+  );
+};
 
 const TutorDetails = () => (
   <Likeable
