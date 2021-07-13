@@ -11,8 +11,25 @@ const template: ArticleSectionProps = {
   title: "Step 1: Learn Hiragana",
   description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
   videoId: "6p9Il_j0zjc",
-  externalArticles: [
-    { text: "Tofugu", href: "https://www.tofugu.com/japanese/learn-hiragana/" },
+  extraLinkSections: [
+    {
+      title: "Articles",
+      links: [
+        {
+          text: "Tofugu",
+          href: "https://www.tofugu.com/japanese/learn-hiragana/",
+        },
+      ],
+    },
+    {
+      title: "Resources",
+      links: [
+        {
+          text: "Tae Kim",
+          href: "http://www.guidetojapanese.org/learn/grammar",
+        },
+      ],
+    },
   ],
 };
 

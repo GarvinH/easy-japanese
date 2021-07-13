@@ -9,18 +9,23 @@ import globalStyles from "../constants/Styles";
 
 import Anchor, { AnchorProps } from "./Anchor";
 
+interface LinkSectionProps {
+  title: string;
+  links: AnchorProps[];
+}
+
 export interface ArticleSectionProps {
   title: string;
   description: string;
   videoId?: string;
-  externalArticles?: AnchorProps[];
+  extraLinkSections: LinkSectionProps[];
 }
 
 const ArticleSection = ({
   title,
   description,
   videoId,
-  externalArticles,
+  extraLinkSections,
 }: ArticleSectionProps) => (
   <View>
     <Title style={styles.title}>{title}</Title>
@@ -36,14 +41,19 @@ const ArticleSection = ({
         />
       </View>
     )}
-    {externalArticles && (
-      <View style={{ ...styles.subsection, alignItems: "baseline" }}>
-        <Title>Articles</Title>
-        {_.map(externalArticles, (article) => (
-          <Anchor text={article.text} href={article.href} />
-        ))}
-      </View>
-    )}
+    {extraLinkSections &&
+      _.map(extraLinkSections, (linkSection) => (
+        <View style={{ ...styles.subsection, alignItems: "baseline" }}>
+          <Title>{linkSection.title}</Title>
+          {_.map(linkSection.links, (article) => (
+            <Anchor
+              key={article.href}
+              text={article.text}
+              href={article.href}
+            />
+          ))}
+        </View>
+      ))}
   </View>
 );
 
