@@ -42,8 +42,11 @@ const ArticleSection = ({
       </View>
     )}
     {extraLinkSections &&
-      _.map(extraLinkSections, (linkSection) => (
-        <View style={{ ...styles.subsection, alignItems: "baseline" }}>
+      _.map(extraLinkSections, (linkSection, index) => (
+        <View
+          key={index}
+          style={{ ...styles.subsection, alignItems: "baseline" }}
+        >
           <Title>{linkSection.title}</Title>
           {_.map(linkSection.links, (article) => (
             <Anchor

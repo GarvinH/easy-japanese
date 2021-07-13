@@ -9,6 +9,7 @@ import { Text, View } from "../../components/Themed";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TutorsParamList } from "../../types";
+import { tutorData } from "../../data/tutors";
 
 export default function TutorsScreen() {
   const navigation =
@@ -16,12 +17,12 @@ export default function TutorsScreen() {
   return (
     <View style={globalStyles.container}>
       <FlatList
-        data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]}
+        data={tutorData}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => navigation.navigate("TutorSelectedScreen")}
           >
-            <TutorCard />
+            <TutorCard {...item}/>
           </TouchableOpacity>
         )}
       />

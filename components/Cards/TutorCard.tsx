@@ -5,11 +5,12 @@ import _ from "lodash";
 
 import LikeableCard from "./LikeableCard";
 import Rating from "../Rating";
-
-export type ContentProps = HeaderProps & BodyProps;
+import { AvatarImageSource } from "react-native-paper/lib/typescript/components/Avatar/AvatarImage";
 
 interface HeaderProps {
   name: string;
+  image: AvatarImageSource;
+  rating: number;
 }
 
 interface BodyProps {
@@ -18,15 +19,12 @@ interface BodyProps {
   languages: string[];
 }
 
-const Header = ({ name }: HeaderProps) => (
+const Header = ({ name, image, rating }: HeaderProps) => (
   <View style={styles.title}>
-    <Avatar.Image
-      source={require("../../assets/images/tutor.png")}
-      style={{ marginRight: 10 }}
-    />
+    <Avatar.Image source={image} style={{ marginRight: 10 }} />
     <View style={{ flex: 1 }}>
       <Title style={{ lineHeight: 20 }}>{name}</Title>
-      <Rating />
+      <Rating {...{ rating }} />
     </View>
   </View>
 );
@@ -58,19 +56,11 @@ const Body = ({ hourly, trial, languages }: BodyProps) => {
   );
 };
 
-const template: ContentProps = {
-  name: "Tutor Name test test test test test test",
-  hourly: 19.99,
-  trial: 5.99,
-  languages: ["English"],
-};
+export type TutorCardProps = HeaderProps & BodyProps;
 
-const TutorCard = () => {
+const TutorCard = (props: TutorCardProps) => {
   return (
-    <LikeableCard
-      header={<Header {...template} />}
-      body={<Body {...template} />}
-    />
+    <LikeableCard header={<Header {...props} />} body={<Body {...props} />} />
   );
 };
 

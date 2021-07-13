@@ -15,7 +15,7 @@ const Body = () => (
   <View>
     <View style={styles.header}>
       <Avatar.Image
-        source={require("../../assets/images/tutor.png")}
+        source={require("../../assets/images/tutor2.png")}
         size={dimensions.window.width * 0.5}
         style={{ marginRight: 16 }}
       />
