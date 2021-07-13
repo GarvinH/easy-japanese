@@ -18,7 +18,7 @@ export interface ArticleSectionProps {
   title: string;
   description: string;
   videoId?: string;
-  extraLinkSections: LinkSectionProps[];
+  extraLinkSections?: LinkSectionProps[];
 }
 
 const ArticleSection = ({
