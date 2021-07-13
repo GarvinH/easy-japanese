@@ -18,11 +18,14 @@ export default function TutorsScreen() {
     <View style={globalStyles.container}>
       <FlatList
         data={tutorData}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate("TutorSelectedScreen")}
+            onPress={() =>
+              navigation.navigate("TutorSelectedScreen", { id: item.id })
+            }
+            style={index !== tutorData.length - 1 && { marginBottom: 20 }}
           >
-            <TutorCard {...item}/>
+            <TutorCard {...item} />
           </TouchableOpacity>
         )}
       />

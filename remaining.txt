@@ -1,4 +1,3 @@
-Real data for tutor
 Real data for game
 Real info for about
 Game needs to end

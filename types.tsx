@@ -21,17 +21,17 @@ export type LearnParamList = {
 
 export type TutorsParamList = {
   TutorsScreen: undefined;
-  TutorSelectedScreen: undefined;
+  TutorSelectedScreen: { id: number };
   BookingScreen: undefined;
 };
 
 export type PracticeParamList = {
   PracticeScreen: undefined;
-  PracticeSelectedScreen: { content: React.ReactElement } | undefined;
+  PracticeSelectedScreen: { id: number } | undefined;
   GameScreen: undefined;
   ResultsScreen: undefined;
-}
+};
 
 export type AboutParamList = {
   AboutScreen: undefined;
-}
+};
