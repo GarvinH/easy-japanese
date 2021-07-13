@@ -65,6 +65,7 @@ const ResultsScreen = () => {
                 value={values.email}
                 theme={{ colors: { primary: "red" } }}
                 placeholder="Ex: example@email.com"
+                error={!!(errors.email && touched.email)}
               />
               <Paragraph>{touched.email && _.capitalize(errors.email)}</Paragraph>
             </View>
