@@ -1,16 +1,25 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import _ from "lodash";
 import { View } from "../../components/Themed";
-import TimedGame from "../../containers/Game/TimedGame";
 import globalStyles from "../../constants/Styles";
 import GoalGame from "../../containers/Game/GoalGame";
-import { hiragana } from "../../containers/Game/Characters/Hiragana";
+import { RouteProp, useRoute } from "@react-navigation/native";
+import { PracticeParamList } from "../../types";
+import { gameData } from "../../data/practice";
 
 const GameScreen = () => {
+  const route = useRoute<RouteProp<PracticeParamList, "GameScreen">>();
+
+  const { id } = route.params;
+
+  const game = _.find(gameData, (gam) => id === gam.id);
+
+  if (game === undefined) {
+    throw new Error("Should not happen");
+  }
   return (
     <View style={{ ...globalStyles.container }}>
-      {/* <TimedGame/> */}
-      <GoalGame characterSet={hiragana} />
+      <GoalGame characterSet={game.characterSet} />
     </View>
   );
 };

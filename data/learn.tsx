@@ -130,5 +130,5 @@ const _learnData: ArticleSectionProps[] = [
 
 export const learnData = _.map(_learnData, (data, index) => ({
   ...data,
-  id: index,
+  id: index.toString(),
 }));

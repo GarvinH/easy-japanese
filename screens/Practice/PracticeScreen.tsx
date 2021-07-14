@@ -14,22 +14,27 @@ import { Text, View } from "../../components/Themed";
 import GameCard from "../../components/Cards/GameCard";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PracticeParamList } from "../../types";
+import { gameData } from "../../data/practice";
+import { Separator } from "../../components/Separator";
 
 export default function LearnScreen() {
   const navigation =
     useNavigation<StackNavigationProp<PracticeParamList, "PracticeScreen">>();
   return (
     <View style={globalStyles.container}>
-        <FlatList
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("PracticeSelectedScreen")}
-            >
-              <GameCard />
-            </TouchableOpacity>
-          )}
-        />
+      <FlatList
+        data={gameData}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("PracticeSelectedScreen", { id: item.id })
+            }
+          >
+            <GameCard {...item} />
+          </TouchableOpacity>
+        )}
+        ItemSeparatorComponent={Separator}
+      />
     </View>
   );
 }

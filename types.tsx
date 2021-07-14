@@ -21,14 +21,14 @@ export type LearnParamList = {
 
 export type TutorsParamList = {
   TutorsScreen: undefined;
-  TutorSelectedScreen: { id: number };
+  TutorSelectedScreen: { id: string };
   BookingScreen: undefined;
 };
 
 export type PracticeParamList = {
   PracticeScreen: undefined;
-  PracticeSelectedScreen: { id: number } | undefined;
-  GameScreen: undefined;
+  PracticeSelectedScreen: { id: string };
+  GameScreen: { id: string };
   ResultsScreen: undefined;
 };
 

@@ -7,21 +7,26 @@ import { useNavigation } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PracticeParamList } from "../../types";
 
-const Header = () => <Title style={{ fontSize: 30 }}>Game Title</Title>;
+interface GameDetailsHeaderProps {
+  title: string;
+}
 
-const Body = () => (
-  <Paragraph>
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-    non proident, sunt in culpa qui officia deserunt mollit anim id est
-    laborum.",
-  </Paragraph>
+const Header = ({ title }: GameDetailsHeaderProps) => (
+  <Title style={{ fontSize: 30 }}>{title}</Title>
 );
 
-const Footer = () => {
+interface GameDetailsBodyProps {
+  description: string;
+}
+const Body = ({ description }: GameDetailsBodyProps) => (
+  <Paragraph>{description}</Paragraph>
+);
+
+interface GameDetailsFooterProps {
+  id: string;
+}
+
+const Footer = ({ id }: GameDetailsFooterProps) => {
   const navigation =
     useNavigation<
       StackNavigationProp<PracticeParamList, "PracticeSelectedScreen">
@@ -32,7 +37,7 @@ const Footer = () => {
         <Button
           text="Practice"
           icon="play"
-          onPress={() => navigation.navigate("GameScreen")}
+          onPress={() => navigation.navigate("GameScreen", { id: id })}
         />
       </View>
       <View style={styles.buttonContainer}>
@@ -46,8 +51,20 @@ const Footer = () => {
   );
 };
 
-const GameDetails = () => (
-  <Likeable liked header={<Header />} body={<Body />} footer={<Footer />} />
+interface GameDetailsProps
+  extends GameDetailsBodyProps,
+    GameDetailsHeaderProps,
+    GameDetailsFooterProps {
+  liked: boolean;
+}
+
+const GameDetails = (props: GameDetailsProps) => (
+  <Likeable
+    liked={props.liked}
+    header={<Header {...props} />}
+    body={<Body {...props} />}
+    footer={<Footer {...props} />}
+  />
 );
 
 const styles = StyleSheet.create({

@@ -61,5 +61,5 @@ const _tutorData: TutorProps[] = [
 
 export const tutorData = _.map(_tutorData, (data, index) => ({
   ...data,
-  id: index,
+  id: index.toString(),
 }));

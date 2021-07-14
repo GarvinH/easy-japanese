@@ -10,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TutorsParamList } from "../../types";
 import { tutorData } from "../../data/tutors";
+import { Separator } from "../../components/Separator";
 
 export default function TutorsScreen() {
   const navigation =
@@ -18,16 +19,16 @@ export default function TutorsScreen() {
     <View style={globalStyles.container}>
       <FlatList
         data={tutorData}
-        renderItem={({ item, index }) => (
+        renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("TutorSelectedScreen", { id: item.id })
             }
-            style={index !== tutorData.length - 1 && { marginBottom: 20 }}
           >
             <TutorCard {...item} />
           </TouchableOpacity>
         )}
+        ItemSeparatorComponent={Separator}
       />
     </View>
   );

@@ -7,17 +7,15 @@ import ArticleSection, {
   ArticleSectionProps,
 } from "../components/ArticleSection";
 import { learnData } from "../data/learn";
+import { Separator } from "../components/Separator";
 
 export default function LearnScreen() {
   return (
     <View style={globalStyles.container}>
       <FlatList
         data={learnData}
-        renderItem={({ item, index }) => (
-          <View style={index != learnData.length - 1 && { marginBottom: 20 }}>
-            <ArticleSection {...item} />
-          </View>
-        )}
+        renderItem={({ item }) => <ArticleSection {...item} />}
+        ItemSeparatorComponent={Separator}
       />
     </View>
   );

@@ -1,22 +1,29 @@
 import * as React from "react";
+import _ from "lodash";
 import { StyleSheet, Dimensions, ScrollView } from "react-native";
 
-import globalStyles from "../../constants/Styles"
+import globalStyles from "../../constants/Styles";
 
 import { Text, View } from "../../components/Themed";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { PracticeParamList } from "../../types";
 import GameDetails from "../../components/Details/GameDetails";
-import TutorDetails from "../../components/Details/TutorDetails";
+import { gameData } from "../../data/practice";
 
 export default function PracticeSelectedScreen() {
-  const route = useRoute<RouteProp<PracticeParamList, "PracticeSelectedScreen">>();
+  const route =
+    useRoute<RouteProp<PracticeParamList, "PracticeSelectedScreen">>();
 
-  // const { content } = route.params;
+  const { id } = route.params;
+
+  const game = _.find(gameData, (gam) => id === gam.id);
+
+  if (game === undefined) {
+    throw new Error("Should not happen");
+  }
   return (
     <View style={globalStyles.container}>
-      <GameDetails />
-      {/* <TutorDetails /> */}
+      <GameDetails {...game} />
     </View>
   );
 }
