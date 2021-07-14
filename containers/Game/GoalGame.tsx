@@ -1,13 +1,12 @@
 import React from "react";
-import { useCallback } from "react";
-import { useState } from "react";
 import _ from "lodash";
 import { StyleSheet, View, Text } from "react-native";
-import { Title } from "react-native-paper";
+import { Paragraph, Title } from "react-native-paper";
 import { KanaProps } from "./Characters/Kana";
 import Game from "./Game";
-import { KanaAnswerSet } from "./shared";
-import { useEffect } from "react";
+import { FlatList } from "react-native-gesture-handler";
+import { FontAwesome } from "@expo/vector-icons";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 interface GoalGameProps {
   characterSet: KanaProps[];
@@ -16,8 +15,8 @@ interface GoalGameProps {
 const maxNumQuestions = 20;
 
 interface HistoryProps {
-  answerId: string | undefined; //what the question was
-  responseId: string | undefined; //what the user responded
+  answer: KanaProps | undefined; //what the question was
+  response: KanaProps | undefined; //what the user responded
 }
 
 interface GoalGameState {
@@ -66,8 +65,10 @@ class GoalGame extends React.Component<GoalGameProps, GoalGameState> {
       history: [
         ...prevState.history,
         {
-          answerId: prevState.answer?.char_id,
-          responseId: prevState.answer?.char_id,
+          answer: prevState.answer,
+          response: prevState.answer,
+          id: prevState.questionNum.toString(),
+
         },
       ],
     }));
@@ -79,69 +80,106 @@ class GoalGame extends React.Component<GoalGameProps, GoalGameState> {
       questionNum: prevState.questionNum + 1,
       history: [
         ...prevState.history,
-        { answerId: prevState.answer?.char_id, responseId: response.char_id },
+        {
+          answer: prevState.answer,
+          response: response,
+          id: prevState.questionNum.toString(),
+        },
       ],
     }));
     this.updateAnswerSet();
   };
 
   render() {
-    const { answer, answerSet, questionNum } = this.state;
+    const { answer, answerSet, questionNum, numCorrect, history } = this.state;
     return (
       <View style={{ flex: 1 }}>
-        <View style={styles.top}>
-          <Title>
-            {questionNum}/{maxNumQuestions}
-          </Title>
-        </View>
-        <Game
-          {...{
-            answer,
-            answerSet,
-            onCorrect: this.onCorrect,
-            onIncorrect: this.onIncorrect,
-          }}
-        />
+        {questionNum <= maxNumQuestions ? (
+          <View style={{ flex: 1 }}>
+            <View style={styles.top}>
+              <Title>
+                {questionNum}/{maxNumQuestions}
+              </Title>
+            </View>
+            <Game
+              {...{
+                answer,
+                answerSet,
+                onCorrect: this.onCorrect,
+                onIncorrect: this.onIncorrect,
+              }}
+            />
+          </View>
+        ) : (
+          <View style={{ flex: 1 }}>
+            <View style={styles.top}>
+              <Title>Results</Title>
+              <Paragraph>
+                Overall accuracy: {(numCorrect / maxNumQuestions)*100}%
+              </Paragraph>
+            </View>
+            <FlatList
+              data={history}
+              renderItem={({ item }) => (
+                <View style={{ flexDirection: "row" }}>
+                  <View style={styles.resultsCol}>
+                    <Paragraph>{item.answer.character}</Paragraph>
+                  </View>
+                  <View style={styles.resultsCol}>
+                    <Paragraph>{item.answer.romanization}</Paragraph>
+                  </View>
+                  <View style={styles.resultsCol}>
+                    <Paragraph>{item.response.romanization}</Paragraph>
+                  </View>
+                  <View style={styles.resultsCol}>
+                    {item.answer.char_id == item.response.char_id ? (
+                      <FontAwesome name="check" />
+                    ) : (
+                      <FontAwesome name="close" />
+                    )}
+                  </View>
+                </View>
+              )}
+              ListHeaderComponent={() => (
+                <View style={{ flexDirection: "row" }}>
+                  <View style={styles.resultsCol}>
+                    <Paragraph style={styles.resultsHeader}>
+                      Character
+                    </Paragraph>
+                  </View>
+                  <View style={styles.resultsCol}>
+                    <Paragraph style={styles.resultsHeader}>
+                      Correct Answer
+                    </Paragraph>
+                  </View>
+                  <View style={styles.resultsCol}>
+                    <Paragraph style={styles.resultsHeader}>Response</Paragraph>
+                  </View>
+                  <View style={styles.resultsCol}></View>
+                </View>
+              )}
+              ItemSeparatorComponent={() => <View style={{borderBottomColor: "rgba(0,0,0,0.5)", borderBottomWidth: 0.5,}} />}
+            />
+          </View>
+        )}
       </View>
     );
   }
 }
 
-// const GoalGame = ({ characterSet }: GoalGame) => {
-//   const [questionNum, setQuestionNum] = useState<number>(1);
-//   const [numCorrect, setNumCorrect] = useState<number>(0);
-//   const [answerSet, setAnswerSet] = useState<KanaProps[]>([]);
-//   const [answer, setAnswer] = useState<KanaProps>();
-//   const [history, setHistory] = useState<HistoryProps[]>([]);
-
-//   useEffect(() => {
-//     updateAnswerSet()
-//   }, [])
-
-//   const updateAnswerSet = useCallback(() => {
-
-//   }, []);
-
-//   const onCorrect = useCallback(() => {
-
-//   }, []);
-
-//   const onIncorrect = useCallback((response: KanaProps) => {
-//     setQuestionNum(questionNum + 1);
-//     setNumCorrect(numCorrect + 1);
-//     setHistory([...history, {answerId: answer?.char_id, responseId: response?.char_id}])
-//     updateAnswerSet();
-//   }, [])
-
-//   return (
-
-//   );
-// };
-
 const styles = StyleSheet.create({
   top: {
     alignItems: "center",
     paddingVertical: 10,
+  },
+  resultsCol: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  resultsHeader: {
+    textAlign: "center",
+    fontWeight: "bold",
   },
 });
 
