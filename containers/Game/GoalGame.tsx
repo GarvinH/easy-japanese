@@ -6,7 +6,7 @@ import { KanaProps } from "./Characters/Kana";
 import Game from "./Game";
 import { FlatList } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import Button from "../../components/Button";
 
 interface GoalGameProps {
   characterSet: KanaProps[];
@@ -49,6 +49,15 @@ class GoalGame extends React.Component<GoalGameProps, GoalGameState> {
     };
   }
 
+  replay = () => {
+    this.setState({
+      questionNum: 1,
+      numCorrect: 0,
+      history: [],
+    });
+    this.updateAnswerSet();
+  };
+
   updateAnswerSet = () => {
     const { characterSet } = this.props;
     let newAnswerSet = _.sampleSize(characterSet, 4);
@@ -68,7 +77,6 @@ class GoalGame extends React.Component<GoalGameProps, GoalGameState> {
           answer: prevState.answer,
           response: prevState.answer,
           id: prevState.questionNum.toString(),
-
         },
       ],
     }));
@@ -115,7 +123,7 @@ class GoalGame extends React.Component<GoalGameProps, GoalGameState> {
             <View style={styles.top}>
               <Title>Results</Title>
               <Paragraph>
-                Overall accuracy: {(numCorrect / maxNumQuestions)*100}%
+                Overall accuracy: {(numCorrect / maxNumQuestions) * 100}%
               </Paragraph>
             </View>
             <FlatList
@@ -158,8 +166,18 @@ class GoalGame extends React.Component<GoalGameProps, GoalGameState> {
                   <View style={styles.resultsCol}></View>
                 </View>
               )}
-              ItemSeparatorComponent={() => <View style={{borderBottomColor: "rgba(0,0,0,0.5)", borderBottomWidth: 0.5,}} />}
+              ItemSeparatorComponent={() => (
+                <View
+                  style={{
+                    borderBottomColor: "rgba(0,0,0,0.5)",
+                    borderBottomWidth: 0.5,
+                  }}
+                />
+              )}
             />
+            <View style={{ marginTop: 10 }}>
+              <Button text="Play Again" icon="refresh" onPress={this.replay} />
+            </View>
           </View>
         )}
       </View>

@@ -1,5 +1,3 @@
-Real data for game
-Game needs to end
-Show results of independent game
 Responsive results to game data
 Likeable and filtering
+Help icon
