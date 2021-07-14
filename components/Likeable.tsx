@@ -22,6 +22,40 @@ const Likeable = ({
 }: LikeableProps) => {
   const colorScheme = useColorScheme();
   return (
+    <View style={{ flex: 1 }}>
+      <View style={styles.header}>
+        <View style={styles.headerContent}>{header}</View>
+        <TouchableOpacity onPress={onClickHeart}>
+          <View style={{ marginLeft: 10 }}>
+            {liked ? (
+              <FontAwesome
+                name="heart"
+                size={32}
+                color={colors[colorScheme].tint}
+              />
+            ) : (
+              <View>
+                <FontAwesome name="heart-o" size={32} />
+              </View>
+            )}
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View>{body}</View>
+      {footer && <View style={styles.footer}>{footer}</View>}
+    </View>
+  );
+};
+
+export const ScrollLikeable = ({
+  liked,
+  header,
+  body,
+  footer,
+  onClickHeart,
+}: LikeableProps) => {
+  const colorScheme = useColorScheme();
+  return (
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.header}>
         <View style={styles.headerContent}>{header}</View>

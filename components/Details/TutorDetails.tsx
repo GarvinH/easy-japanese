@@ -3,7 +3,7 @@ import _ from "lodash";
 import { StyleSheet, View } from "react-native";
 import Rating from "../Rating";
 import { Title, Avatar, Paragraph } from "react-native-paper";
-import Likeable from "../Likeable";
+import { ScrollLikeable } from "../Likeable";
 import dimensions from "../../constants/Layout";
 import Button from "../Button";
 import { useNavigation } from "@react-navigation/native";
@@ -94,7 +94,7 @@ type TutorDetailsProps = TutorBodyProps &
   TutorHeaderProps & { liked: boolean; onClickHeart: () => void };
 
 const TutorDetails = (props: TutorDetailsProps) => (
-  <Likeable
+  <ScrollLikeable
     {...props}
     header={<TutorHeader {...props} />}
     body={<Body {...props} />}

@@ -15,8 +15,13 @@ import { TutorsParamList } from "../../types";
 import { Separator } from "../../components/Separator";
 import { TutorState, TutorType } from "./redux/type";
 import { toggleLiked } from "./redux/store/actions";
+import LikedSwitch from "../../components/LikedSwitch";
+import { useState } from "react";
+import { useCallback } from "react";
 
 export default function TutorsScreen() {
+  const [likedOnly, setLikedOnly] = useState<boolean>(false);
+
   const tutors: readonly TutorType[] = useSelector(
     (state: TutorState) => state.tutors,
     shallowEqual
@@ -24,26 +29,42 @@ export default function TutorsScreen() {
 
   const dispatch: Dispatch<any> = useDispatch();
 
+  const filteredTutors = likedOnly
+    ? _.filter(tutors, (tutor) => tutor.liked)
+    : tutors;
+
   const navigation =
     useNavigation<StackNavigationProp<TutorsParamList, "TutorsScreen">>();
+
+  const renderItem = useCallback(
+    ({ item }) => (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("TutorSelectedScreen", { id: item.id })
+        }
+      >
+        <TutorCard
+          {...item}
+          onClickHeart={() => {
+            dispatch(toggleLiked(item.id));
+          }}
+        />
+      </TouchableOpacity>
+    ),
+    []
+  );
   return (
     <View style={globalStyles.container}>
-      <FlatList
-        data={tutors}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("TutorSelectedScreen", { id: item.id })
-            }
-          >
-            <TutorCard
-              {...item}
-              onClickHeart={() => {
-                dispatch(toggleLiked(item.id));
-              }}
-            />
-          </TouchableOpacity>
+      <LikedSwitch
+        value={likedOnly}
+        onValueChange={React.useCallback(
+          () => setLikedOnly((prevLikedOnly) => !prevLikedOnly),
+          []
         )}
+      />
+      <FlatList
+        data={filteredTutors}
+        renderItem={renderItem}
         ItemSeparatorComponent={Separator}
       />
     </View>

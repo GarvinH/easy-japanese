@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import Likeable from "../Likeable";
+import { ScrollLikeable } from "../Likeable";
 import { Paragraph, Title } from "react-native-paper";
 import Button from "../Button";
 import { useNavigation } from "@react-navigation/core";
@@ -60,7 +60,7 @@ interface GameDetailsProps
 }
 
 const GameDetails = (props: GameDetailsProps) => (
-  <Likeable
+  <ScrollLikeable
     {...props}
     header={<Header {...props} />}
     body={<Body {...props} />}
