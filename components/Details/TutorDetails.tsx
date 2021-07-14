@@ -46,11 +46,11 @@ const Body = ({
       <View style={styles.subheader}>
         <View>
           <Paragraph style={{ fontWeight: "bold" }}>Hourly Rate</Paragraph>
-          <Paragraph>{hourly}</Paragraph>
+          <Paragraph>${hourly}</Paragraph>
         </View>
         <View>
           <Paragraph style={{ fontWeight: "bold" }}>Trial Cost</Paragraph>
-          <Paragraph>{trial}</Paragraph>
+          <Paragraph>${trial}</Paragraph>
         </View>
         <View>
           <Paragraph style={{ fontWeight: "bold" }}>Also Speaks</Paragraph>

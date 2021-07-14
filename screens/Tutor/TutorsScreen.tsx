@@ -12,10 +12,7 @@ import { Text, View } from "../../components/Themed";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TutorsParamList } from "../../types";
-import { tutorData } from "../../data/tutors";
 import { Separator } from "../../components/Separator";
-import { useState } from "react";
-import { useCallback } from "react";
 import { TutorState, TutorType } from "./redux/type";
 import { toggleLiked } from "./redux/store/actions";
 
