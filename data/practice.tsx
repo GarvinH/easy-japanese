@@ -4,7 +4,7 @@ import { hiragana } from "../containers/Game/Characters/Hiragana";
 import { KanaProps } from "../containers/Game/Characters/Kana";
 import { katakana } from "../containers/Game/Characters/Katakana";
 
-interface GameDataProps {
+export interface GameDataProps {
   title: string;
   description: string;
   characterSet: KanaProps[];

@@ -11,6 +11,7 @@ import { createStore, Store } from "redux";
 import { Provider } from "react-redux";
 
 import tutorReducer from "../screens/Tutor/redux/store/reducer";
+import gameReducer from "../screens/Practice/redux/store/reducer";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
@@ -31,10 +32,15 @@ import TutorSelectedScreen from "../screens/Tutor/TutorSelectedScreen";
 import ResultsScreen from "../screens/Practice/ResultsScreen";
 import BookingScreen from "../screens/Tutor/BookingScreen";
 import {
-  DispatchType,
+  DispatchType as TutorDispatchType,
   TutorAction,
   TutorState,
 } from "../screens/Tutor/redux/type";
+import {
+  GameAction,
+  GameState,
+  DispatchType as GameDispatchType,
+} from "../screens/Practice/redux/type";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -123,14 +129,14 @@ function LearnNavigator() {
 }
 
 const TutorsStack = createStackNavigator<TutorsParamList>();
-const store: Store<TutorState, TutorAction> & {
-  dispatch: DispatchType;
+const tutorStore: Store<TutorState, TutorAction> & {
+  dispatch: TutorDispatchType;
 } = createStore(tutorReducer);
 
 function TutorsNavigator() {
   const colorScheme = useColorScheme();
   return (
-    <Provider store={store}>
+    <Provider store={tutorStore}>
       <TutorsStack.Navigator
         screenOptions={{
           headerStyle: {
@@ -160,39 +166,44 @@ function TutorsNavigator() {
 }
 
 const PracticeStack = createStackNavigator<PracticeParamList>();
+const practiceStore: Store<GameState, GameAction> & {
+  dispatch: TutorDispatchType;
+} = createStore(gameReducer);
 
 const PracticeNavigator = () => {
   const colorScheme = useColorScheme();
   return (
-    <PracticeStack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: Colors[colorScheme].tint,
-        },
-        headerTintColor: Colors[colorScheme].textOnTint,
-      }}
-    >
-      <PracticeStack.Screen
-        name="PracticeScreen"
-        component={PracticeScreen}
-        options={{ headerTitle: "Practice" }}
-      />
-      <PracticeStack.Screen
-        name="PracticeSelectedScreen"
-        component={PracticeSelectedScreen}
-        options={{ headerTitle: "Practice" }}
-      />
-      <PracticeStack.Screen
-        name="GameScreen"
-        component={GameScreen}
-        options={{ headerTitle: "Practice" }}
-      />
-      <PracticeStack.Screen
-        name="ResultsScreen"
-        component={ResultsScreen}
-        options={{ headerTitle: "Results" }}
-      />
-    </PracticeStack.Navigator>
+    <Provider store={practiceStore}>
+      <PracticeStack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: Colors[colorScheme].tint,
+          },
+          headerTintColor: Colors[colorScheme].textOnTint,
+        }}
+      >
+        <PracticeStack.Screen
+          name="PracticeScreen"
+          component={PracticeScreen}
+          options={{ headerTitle: "Practice" }}
+        />
+        <PracticeStack.Screen
+          name="PracticeSelectedScreen"
+          component={PracticeSelectedScreen}
+          options={{ headerTitle: "Practice" }}
+        />
+        <PracticeStack.Screen
+          name="GameScreen"
+          component={GameScreen}
+          options={{ headerTitle: "Practice" }}
+        />
+        <PracticeStack.Screen
+          name="ResultsScreen"
+          component={ResultsScreen}
+          options={{ headerTitle: "Results" }}
+        />
+      </PracticeStack.Navigator>
+    </Provider>
   );
 };
 

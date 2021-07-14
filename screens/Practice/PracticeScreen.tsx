@@ -7,6 +7,8 @@ import {
   FlatList,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { shallowEqual, useSelector, useDispatch } from "react-redux";
+import { Dispatch } from "redux";
 
 import globalStyles from "../../constants/Styles";
 
@@ -14,23 +16,34 @@ import { Text, View } from "../../components/Themed";
 import GameCard from "../../components/Cards/GameCard";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PracticeParamList } from "../../types";
-import { gameData } from "../../data/practice";
 import { Separator } from "../../components/Separator";
+import { GameState, GameType } from "./redux/type";
+import { toggleLiked } from "./redux/store/actions";
 
 export default function LearnScreen() {
+  const games: readonly GameType[] = useSelector(
+    (state: GameState) => state.games,
+    shallowEqual
+  );
+
+  const dispatch: Dispatch<any> = useDispatch();
+
   const navigation =
     useNavigation<StackNavigationProp<PracticeParamList, "PracticeScreen">>();
   return (
     <View style={globalStyles.container}>
       <FlatList
-        data={gameData}
+        data={games}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("PracticeSelectedScreen", { id: item.id })
             }
           >
-            <GameCard {...item} />
+            <GameCard
+              {...item}
+              onClickHeart={() => dispatch(toggleLiked(item.id))}
+            />
           </TouchableOpacity>
         )}
         ItemSeparatorComponent={Separator}
