@@ -1,6 +1,8 @@
 import * as React from "react";
 import _ from "lodash";
 import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
 
 import globalStyles from "../../constants/Styles";
 
@@ -14,18 +16,16 @@ import { tutorData } from "../../data/tutors";
 import { Separator } from "../../components/Separator";
 import { useState } from "react";
 import { useCallback } from "react";
+import { TutorState, TutorType } from "./redux/type";
+import { toggleLiked } from "./redux/store/actions";
 
 export default function TutorsScreen() {
-  const [tutors, setTutors] = useState(
-    _.map(tutorData, (tutor) => ({ ...tutor, liked: false }))
+  const tutors: readonly TutorType[] = useSelector(
+    (state: TutorState) => state.tutors,
+    shallowEqual
   );
 
-  const toggleLiked = (id: string) => {
-    const newTutors = _.map(tutors, (tutor) =>
-      tutor.id === id ? { ...tutor, liked: !tutor.liked } : { ...tutor }
-    );
-    setTutors(newTutors);
-  };
+  const dispatch: Dispatch<any> = useDispatch();
 
   const navigation =
     useNavigation<StackNavigationProp<TutorsParamList, "TutorsScreen">>();
@@ -42,7 +42,7 @@ export default function TutorsScreen() {
             <TutorCard
               {...item}
               onClickHeart={() => {
-                toggleLiked(item.id);
+                dispatch(toggleLiked(item.id));
               }}
             />
           </TouchableOpacity>

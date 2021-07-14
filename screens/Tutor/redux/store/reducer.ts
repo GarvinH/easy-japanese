@@ -29,4 +29,4 @@ const reducer = (state: TutorState = initialState, action: TutorAction) => {
   return state;
 };
 
-export default reducer
+export default reducer;
