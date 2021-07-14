@@ -56,12 +56,13 @@ const Body = ({ hourly, trial, languages }: BodyProps) => {
   );
 };
 
-export type TutorCardProps = HeaderProps & BodyProps & { liked: boolean };
+export type TutorCardProps = HeaderProps &
+  BodyProps & { liked: boolean; onClickHeart: () => void };
 
 const TutorCard = (props: TutorCardProps) => {
   return (
     <LikeableCard
-      liked={props.liked}
+      {...props}
       header={<Header {...props} />}
       body={<Body {...props} />}
     />

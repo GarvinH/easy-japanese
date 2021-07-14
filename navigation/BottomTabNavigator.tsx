@@ -7,6 +7,10 @@ import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
+import { createStore, Store } from "redux";
+import { Provider } from "react-redux";
+
+import tutorReducer from "../screens/Tutor/redux/store/reducer";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
@@ -25,7 +29,12 @@ import {
 import GameScreen from "../screens/Practice/GameScreen";
 import TutorSelectedScreen from "../screens/Tutor/TutorSelectedScreen";
 import ResultsScreen from "../screens/Practice/ResultsScreen";
-import BookingScreen from "../screens/Tutor/BookingScreen"
+import BookingScreen from "../screens/Tutor/BookingScreen";
+import {
+  DispatchType,
+  TutorAction,
+  TutorState,
+} from "../screens/Tutor/redux/type";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -114,34 +123,39 @@ function LearnNavigator() {
 }
 
 const TutorsStack = createStackNavigator<TutorsParamList>();
+const store: Store<TutorState, TutorAction> & {
+  dispatch: DispatchType;
+} = createStore(tutorReducer);
 
 function TutorsNavigator() {
   const colorScheme = useColorScheme();
   return (
-    <TutorsStack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: Colors[colorScheme].tint,
-        },
-        headerTintColor: Colors[colorScheme].textOnTint,
-      }}
-    >
-      <TutorsStack.Screen
-        name="TutorsScreen"
-        component={TutorsScreen}
-        options={{ headerTitle: "Tutors" }}
-      />
-      <TutorsStack.Screen
-        name="TutorSelectedScreen"
-        component={TutorSelectedScreen}
-        options={{ headerTitle: "Tutors" }}
-      />
-      <TutorsStack.Screen
-        name="BookingScreen"
-        component={BookingScreen}
-        options={{ headerTitle: "Booking" }}
-      />
-    </TutorsStack.Navigator>
+    <Provider store={store}>
+      <TutorsStack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: Colors[colorScheme].tint,
+          },
+          headerTintColor: Colors[colorScheme].textOnTint,
+        }}
+      >
+        <TutorsStack.Screen
+          name="TutorsScreen"
+          component={TutorsScreen}
+          options={{ headerTitle: "Tutors" }}
+        />
+        <TutorsStack.Screen
+          name="TutorSelectedScreen"
+          component={TutorSelectedScreen}
+          options={{ headerTitle: "Tutors" }}
+        />
+        <TutorsStack.Screen
+          name="BookingScreen"
+          component={BookingScreen}
+          options={{ headerTitle: "Booking" }}
+        />
+      </TutorsStack.Navigator>
+    </Provider>
   );
 }
 

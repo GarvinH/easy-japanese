@@ -1,4 +1,5 @@
 import * as React from "react";
+import _ from "lodash";
 import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
 
 import globalStyles from "../../constants/Styles";
@@ -11,21 +12,39 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { TutorsParamList } from "../../types";
 import { tutorData } from "../../data/tutors";
 import { Separator } from "../../components/Separator";
+import { useState } from "react";
+import { useCallback } from "react";
 
 export default function TutorsScreen() {
+  const [tutors, setTutors] = useState(
+    _.map(tutorData, (tutor) => ({ ...tutor, liked: false }))
+  );
+
+  const toggleLiked = (id: string) => {
+    const newTutors = _.map(tutors, (tutor) =>
+      tutor.id === id ? { ...tutor, liked: !tutor.liked } : { ...tutor }
+    );
+    setTutors(newTutors);
+  };
+
   const navigation =
     useNavigation<StackNavigationProp<TutorsParamList, "TutorsScreen">>();
   return (
     <View style={globalStyles.container}>
       <FlatList
-        data={tutorData}
+        data={tutors}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("TutorSelectedScreen", { id: item.id })
             }
           >
-            <TutorCard {...item} />
+            <TutorCard
+              {...item}
+              onClickHeart={() => {
+                toggleLiked(item.id);
+              }}
+            />
           </TouchableOpacity>
         )}
         ItemSeparatorComponent={Separator}

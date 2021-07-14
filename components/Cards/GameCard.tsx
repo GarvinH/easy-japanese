@@ -27,12 +27,13 @@ const Body = ({ description }: GameCardBodyProps) => (
 
 interface GameCardProps extends GameCardBodyProps, GameCardHeaderProps {
   liked: boolean;
+  onClickHeart: () => void;
 }
 
 const GameCard = (props: GameCardProps) => {
   return (
     <LikeableCard
-      liked={props.liked}
+      {...props}
       header={<Header {...props} />}
       body={<Body {...props} />}
     />

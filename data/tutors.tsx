@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { AvatarImageSource } from "react-native-paper/lib/typescript/components/Avatar/AvatarImage";
 
-interface TutorProps {
+export interface TutorProps {
   name: string;
   hourly: number;
   trial: number;

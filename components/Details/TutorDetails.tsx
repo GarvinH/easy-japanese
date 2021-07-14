@@ -90,11 +90,12 @@ const Footer = () => {
   );
 };
 
-type TutorDetailsProps = TutorBodyProps & TutorHeaderProps & { liked: boolean };
+type TutorDetailsProps = TutorBodyProps &
+  TutorHeaderProps & { liked: boolean; onClickHeart: () => void };
 
 const TutorDetails = (props: TutorDetailsProps) => (
   <Likeable
-    liked={props.liked}
+    {...props}
     header={<TutorHeader {...props} />}
     body={<Body {...props} />}
     footer={<Footer />}

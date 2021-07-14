@@ -10,15 +10,22 @@ interface LikeableProps {
   header: React.ReactElement;
   body?: React.ReactElement;
   footer?: React.ReactElement;
+  onClickHeart: () => void;
 }
 
-const Likeable = ({ liked, header, body, footer }: LikeableProps) => {
+const Likeable = ({
+  liked,
+  header,
+  body,
+  footer,
+  onClickHeart,
+}: LikeableProps) => {
   const colorScheme = useColorScheme();
   return (
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.header}>
         <View style={styles.headerContent}>{header}</View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onClickHeart}>
           <View style={{ marginLeft: 10 }}>
             {liked ? (
               <FontAwesome
@@ -27,7 +34,9 @@ const Likeable = ({ liked, header, body, footer }: LikeableProps) => {
                 color={colors[colorScheme].tint}
               />
             ) : (
-              <FontAwesome name="heart-o" size={35} />
+              <View>
+                <FontAwesome name="heart-o" size={32} />
+              </View>
             )}
           </View>
         </TouchableOpacity>

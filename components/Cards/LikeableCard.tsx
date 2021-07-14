@@ -10,6 +10,7 @@ interface LikeableCardProps {
   liked?: boolean;
   header: React.ReactElement;
   body?: React.ReactElement;
+  onClickHeart: () => void;
 }
 
 const LikeableCard = (props: LikeableCardProps) => {
@@ -18,7 +19,6 @@ const LikeableCard = (props: LikeableCardProps) => {
     <Card mode="outlined">
       <Card.Content>
         <Likeable {...props} />
-          
       </Card.Content>
     </Card>
   );

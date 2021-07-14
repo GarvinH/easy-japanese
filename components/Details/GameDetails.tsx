@@ -56,11 +56,12 @@ interface GameDetailsProps
     GameDetailsHeaderProps,
     GameDetailsFooterProps {
   liked: boolean;
+  onClickHeart: () => void;
 }
 
 const GameDetails = (props: GameDetailsProps) => (
   <Likeable
-    liked={props.liked}
+    {...props}
     header={<Header {...props} />}
     body={<Body {...props} />}
     footer={<Footer {...props} />}
