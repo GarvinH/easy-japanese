@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 import tutorReducer from "../screens/Tutor/redux/store/reducer";
 import gameReducer from "../screens/Practice/redux/store/reducer";
 
-import Colors from "../constants/Colors";
+import colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import LearnScreen from "../screens/LearnScreen";
 import TutorsScreen from "../screens/Tutor/TutorsScreen";
@@ -41,6 +41,18 @@ import {
   GameState,
   DispatchType as GameDispatchType,
 } from "../screens/Practice/redux/type";
+import { TouchableOpacity } from "react-native";
+import { useState } from "react";
+import {
+  Button,
+  Dialog,
+  Modal,
+  Paragraph,
+  Portal,
+  Title,
+} from "react-native-paper";
+import { View } from "../components/Themed";
+import { useCallback } from "react";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -50,7 +62,7 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Learn"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+      tabBarOptions={{ activeTintColor: colors[colorScheme].tint }}
     >
       <BottomTab.Screen
         name="Learn"
@@ -114,9 +126,9 @@ function LearnNavigator() {
     <LearnStack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: Colors[colorScheme].tint,
+          backgroundColor: colors[colorScheme].tint,
         },
-        headerTintColor: Colors[colorScheme].textOnTint,
+        headerTintColor: colors[colorScheme].textOnTint,
       }}
     >
       <LearnStack.Screen
@@ -128,27 +140,77 @@ function LearnNavigator() {
   );
 }
 
+interface HelpIconButtonProps {
+  onPress: () => void;
+}
+
+const HelpIconButton = ({ onPress }: HelpIconButtonProps) => {
+  const colorScheme = useColorScheme();
+  return (
+    <TouchableOpacity style={{ marginRight: 20 }} onPress={onPress}>
+      <FontAwesome
+        name="question-circle-o"
+        size={30}
+        color={colors[colorScheme].textOnTint}
+      />
+    </TouchableOpacity>
+  );
+};
+
 const TutorsStack = createStackNavigator<TutorsParamList>();
 const tutorStore: Store<TutorState, TutorAction> & {
   dispatch: TutorDispatchType;
 } = createStore(tutorReducer);
 
 function TutorsNavigator() {
+  const [showHelp, setShowHelp] = useState<boolean>(false);
   const colorScheme = useColorScheme();
+
+  const hideHelp = useCallback(() => setShowHelp(false), []);
+
+  const TutorsHelpScreen = useCallback(
+    () => (
+      <View style={{ flex: 1 }}>
+        <TutorsScreen />
+        <Dialog visible={showHelp} onDismiss={hideHelp}>
+          <Dialog.Title>Tutor Help</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>
+              To select a tutor, click on their corresponding card.{"\n"}Tutors
+              can be favourited by clicking on the heart icon.{"\n"}To only show
+              favourited tutors, enable the "Show liked only" option in the top
+              right.
+            </Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideHelp} color={colors[colorScheme].tint}>
+              Done
+            </Button>
+          </Dialog.Actions>
+        </Dialog>
+      </View>
+    ),
+    [showHelp]
+  );
   return (
     <Provider store={tutorStore}>
       <TutorsStack.Navigator
         screenOptions={{
           headerStyle: {
-            backgroundColor: Colors[colorScheme].tint,
+            backgroundColor: colors[colorScheme].tint,
           },
-          headerTintColor: Colors[colorScheme].textOnTint,
+          headerTintColor: colors[colorScheme].textOnTint,
         }}
       >
         <TutorsStack.Screen
           name="TutorsScreen"
-          component={TutorsScreen}
-          options={{ headerTitle: "Tutors" }}
+          component={TutorsHelpScreen}
+          options={{
+            headerTitle: "Tutors",
+            headerRight: () => (
+              <HelpIconButton onPress={() => setShowHelp(true)} />
+            ),
+          }}
         />
         <TutorsStack.Screen
           name="TutorSelectedScreen"
@@ -171,21 +233,55 @@ const practiceStore: Store<GameState, GameAction> & {
 } = createStore(gameReducer);
 
 const PracticeNavigator = () => {
+  const [showHelp, setShowHelp] = useState<boolean>(false);
+
   const colorScheme = useColorScheme();
+
+  const hideHelp = useCallback(() => setShowHelp(false), []);
+
+  const PracticeHelpScreen = useCallback(
+    () => (
+      <View style={{ flex: 1 }}>
+        <PracticeScreen />
+        <Dialog visible={showHelp} onDismiss={hideHelp}>
+          <Dialog.Title>Practice Help</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>
+              To select a game, click on their corresponding card.
+              {"\n"}Games can be favourited by clicking on the heart icon.{"\n"}
+              To only show favourited games, enable the "Show liked only" option
+              in the top right.
+            </Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideHelp} color={colors[colorScheme].tint}>
+              Done
+            </Button>
+          </Dialog.Actions>
+        </Dialog>
+      </View>
+    ),
+    [showHelp]
+  );
   return (
     <Provider store={practiceStore}>
       <PracticeStack.Navigator
         screenOptions={{
           headerStyle: {
-            backgroundColor: Colors[colorScheme].tint,
+            backgroundColor: colors[colorScheme].tint,
           },
-          headerTintColor: Colors[colorScheme].textOnTint,
+          headerTintColor: colors[colorScheme].textOnTint,
         }}
       >
         <PracticeStack.Screen
           name="PracticeScreen"
-          component={PracticeScreen}
-          options={{ headerTitle: "Practice" }}
+          component={PracticeHelpScreen}
+          options={{
+            headerTitle: "Practice",
+            headerRight: () => (
+              <HelpIconButton onPress={() => setShowHelp(true)} />
+            ),
+          }}
         />
         <PracticeStack.Screen
           name="PracticeSelectedScreen"
@@ -216,9 +312,9 @@ const AboutNavigator = () => {
     <AboutStack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: Colors[colorScheme].tint,
+          backgroundColor: colors[colorScheme].tint,
         },
-        headerTintColor: Colors[colorScheme].textOnTint,
+        headerTintColor: colors[colorScheme].textOnTint,
       }}
     >
       <AboutStack.Screen
