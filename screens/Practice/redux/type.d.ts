@@ -5,15 +5,20 @@ export interface GameType extends GameDataProps {
   id: string;
 }
 
+export interface GameHistoryProps {
+  results: number[];
+  id: string;
+}
+
 interface GameState {
   games: GameType[];
-  history: number[];
+  history: HistoryProps[];
 }
 
 interface GameAction {
   type: string;
-  gameId?: string;
-  results?: number;
+  gameId: string;
+  results: number;
 }
 
 type DispatchType = (args: GameAction) => GameAction;

@@ -3,6 +3,7 @@ import _ from "lodash";
 import { gameData } from "../../../../data/practice";
 import { GameAction, GameState, GameType } from "../type";
 import * as actionTypes from "./actionTypes";
+import { GameHistoryProps } from "../type";
 
 const initialTutorData = _.map(gameData, (game) => ({
   ...game,
@@ -28,10 +29,23 @@ const reducer = (state: GameState = initialState, action: GameAction) => {
       if (_.isNil(action.results)) {
         throw new Error("Should not happen");
       }
-      const newHistory = _.chain(state.history)
-        .takeRight(9)
-        .concat([action.results])
-        .value();
+
+      const newHistory =
+        _.findIndex(state.history, { id: action.gameId }) === -1
+          ? _.concat(state.history, [
+              { id: action.gameId, results: [action.results] },
+            ])
+          : _.map(state.history, (history: GameHistoryProps) =>
+              history.id === action.gameId
+                ? {
+                    ...history,
+                    results: _.chain(history.results)
+                      .takeRight(9)
+                      .concat([action.results])
+                      .value(),
+                  }
+                : { ...history }
+            );
 
       return { ...state, history: newHistory };
     }

@@ -5,7 +5,8 @@ export const toggleLiked = (gameId: string) => ({
   gameId: gameId,
 });
 
-export const updateHistory = (results: number) => ({
+export const updateHistory = (results: number, gameId: string) => ({
   type: actionTypes.UPDATE_HISTORY,
-  results: results
+  results: results,
+  gameId: gameId
 })

@@ -29,7 +29,7 @@ export type PracticeParamList = {
   PracticeScreen: undefined;
   PracticeSelectedScreen: { id: string };
   GameScreen: { id: string };
-  ResultsScreen: undefined;
+  ResultsScreen: { id: string };
 };
 
 export type AboutParamList = {

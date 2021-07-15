@@ -17,12 +17,12 @@ const GameScreen = () => {
 
   const dispatch: Dispatch<any> = useDispatch();
 
+  const { id } = route.params;
+  
   const onFinish = useCallback(
-    (results: number) => dispatch(updateHistory(results)),
+    (results: number) => dispatch(updateHistory(results, id)),
     []
   );
-
-  const { id } = route.params;
 
   const game = _.find(gameData, (gam) => id === gam.id);
 
