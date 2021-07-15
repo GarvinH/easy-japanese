@@ -10,6 +10,7 @@ import Button from "../../components/Button";
 
 interface GoalGameProps {
   characterSet: KanaProps[];
+  onFinish: (results: number) => void;
 }
 
 const maxNumQuestions = 20;
@@ -97,6 +98,14 @@ class GoalGame extends React.Component<GoalGameProps, GoalGameState> {
     }));
     this.updateAnswerSet();
   };
+
+  componentDidUpdate(prevProps: GoalGameProps, prevState: GoalGameState) {
+    const { questionNum, numCorrect } = this.state;
+    const { questionNum: prevQuestionNum } = prevState;
+    if (questionNum !== prevQuestionNum && questionNum > maxNumQuestions) {
+      this.props.onFinish((numCorrect / maxNumQuestions) * 100);
+    }
+  }
 
   render() {
     const { answer, answerSet, questionNum, numCorrect, history } = this.state;

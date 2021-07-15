@@ -11,6 +11,7 @@ const initialTutorData = _.map(gameData, (game) => ({
 
 const initialState: GameState = {
   games: initialTutorData,
+  history: [],
 };
 
 const reducer = (state: GameState = initialState, action: GameAction) => {
@@ -22,6 +23,17 @@ const reducer = (state: GameState = initialState, action: GameAction) => {
           : { ...game }
       );
       return { ...state, games: newGames };
+    }
+    case actionTypes.UPDATE_HISTORY: {
+      if (_.isNil(action.results)) {
+        throw new Error("Should not happen");
+      }
+      const newHistory = _.chain(state.history)
+        .takeRight(9)
+        .concat([action.results])
+        .value();
+
+      return { ...state, history: newHistory };
     }
   }
 

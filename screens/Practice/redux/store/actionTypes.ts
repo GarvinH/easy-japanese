@@ -1,1 +1,2 @@
 export const TOGGLE_LIKED = "TOGGLE_LIKED";
+export const UPDATE_HISTORY = "UPDATE_HISTORY"
