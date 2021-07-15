@@ -42,7 +42,7 @@ const Footer = ({ id }: GameDetailsFooterProps) => {
       </View>
       <View style={styles.buttonContainer}>
         <Button
-          text="Results"
+          text="Performance"
           icon="chart-line"
           onPress={() => navigation.navigate("ResultsScreen")}
         />
