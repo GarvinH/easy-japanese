@@ -7,6 +7,7 @@ import Game from "./Game";
 import { FlatList } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons";
 import Button from "../../components/Button";
+import i18n from "../../i18n";
 
 interface GoalGameProps {
   characterSet: KanaProps[];
@@ -130,9 +131,9 @@ class GoalGame extends React.Component<GoalGameProps, GoalGameState> {
         ) : (
           <View style={{ flex: 1 }}>
             <View style={styles.top}>
-              <Title>Results</Title>
+              <Title>{i18n.t("Results")}</Title>
               <Paragraph>
-                Overall accuracy: {(numCorrect / maxNumQuestions) * 100}%
+              {i18n.t("Overall_Accuracy")}: {(numCorrect / maxNumQuestions) * 100}%
               </Paragraph>
             </View>
             <FlatList
@@ -161,16 +162,18 @@ class GoalGame extends React.Component<GoalGameProps, GoalGameState> {
                 <View style={{ flexDirection: "row" }}>
                   <View style={styles.resultsCol}>
                     <Paragraph style={styles.resultsHeader}>
-                      Character
+                      {i18n.t("Character")}
                     </Paragraph>
                   </View>
                   <View style={styles.resultsCol}>
                     <Paragraph style={styles.resultsHeader}>
-                      Correct Answer
+                      {i18n.t("Correct_Answer")}
                     </Paragraph>
                   </View>
                   <View style={styles.resultsCol}>
-                    <Paragraph style={styles.resultsHeader}>Response</Paragraph>
+                    <Paragraph style={styles.resultsHeader}>
+                      {i18n.t("Response")}
+                    </Paragraph>
                   </View>
                   <View style={styles.resultsCol}></View>
                 </View>
@@ -185,7 +188,11 @@ class GoalGame extends React.Component<GoalGameProps, GoalGameState> {
               )}
             />
             <View style={{ marginTop: 10 }}>
-              <Button text="Play Again" icon="refresh" onPress={this.replay} />
+              <Button
+                text={i18n.t("Play_Again")}
+                icon="refresh"
+                onPress={this.replay}
+              />
             </View>
           </View>
         )}

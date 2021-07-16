@@ -6,6 +6,7 @@ import Button from "../Button";
 import { useNavigation } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { PracticeParamList } from "../../types";
+import i18next from "i18next";
 
 interface GameDetailsHeaderProps {
   title: string;
@@ -35,16 +36,16 @@ const Footer = ({ id }: GameDetailsFooterProps) => {
     <View style={styles.footer}>
       <View style={styles.buttonContainer}>
         <Button
-          text="Practice"
+          text={i18next.t("Practice")}
           icon="play"
           onPress={() => navigation.navigate("GameScreen", { id: id })}
         />
       </View>
       <View style={styles.buttonContainer}>
         <Button
-          text="Performance"
+          text={i18next.t("Performance")}
           icon="chart-line"
-          onPress={() => navigation.navigate("ResultsScreen", {id: id})}
+          onPress={() => navigation.navigate("ResultsScreen", { id: id })}
         />
       </View>
     </View>

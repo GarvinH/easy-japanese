@@ -7,6 +7,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import ResultsGraph from "../../components/Results/Chart";
 import { View } from "../../components/Themed";
 import globalStyles from "../../constants/Styles";
+import i18n from "../../i18n";
 import { PracticeParamList } from "../../types";
 import { GameState } from "./redux/type";
 
@@ -22,31 +23,19 @@ const ResultsScreen = () => {
         : [],
     shallowEqual
   );
-
-  console.log(data);
-
   return (
     <View style={{ ...globalStyles.container }}>
       {data && data.length >= 3 ? (
         <View style={{ flex: 1 }}>
           <ResultsGraph data={data} />
-          <Title>How to Read the Graph</Title>
-          <Paragraph>
-            The x-axis of the graph represents the results of the last 10 games.
-            In particular, 1 is the least recent game, while 10 is the most
-            recent game. Only the last 10 games are recorded.
-          </Paragraph>
-          <Paragraph>
-            The y-axis of the graph represents the score from the game of the
-            corresponding x-value. This is represented in percentage.
-          </Paragraph>
+          <Title>{i18n.t("How_Read_Graph")}</Title>
+          <Paragraph>{i18n.t("How_Read_Graph_X")}</Paragraph>
+          <Paragraph>{i18n.t("How_Read_Graph_Y")}</Paragraph>
         </View>
       ) : (
         <View style={{ flex: 1 }}>
-          <Title>Not Enough Data!</Title>
-          <Paragraph>
-            Please return after you have practiced 3 or more times.
-          </Paragraph>
+          <Title>{i18n.t("Not_Enough_Data")}</Title>
+          <Paragraph>{i18n.t("Not_Enough_Data_Details")}</Paragraph>
         </View>
       )}
     </View>

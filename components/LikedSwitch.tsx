@@ -3,6 +3,7 @@ import { View } from "./Themed";
 import { Paragraph, Switch } from "react-native-paper";
 import colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
+import i18next from "i18next";
 
 interface LikedSwitchProps {
   value: boolean;
@@ -19,7 +20,7 @@ const LikedSwitch = (props: LikedSwitchProps) => {
         justifyContent: "flex-end",
       }}
     >
-      <Paragraph>Show liked only</Paragraph>
+      <Paragraph>{i18next.t("Liked_Only")}</Paragraph>
       <Switch
         {...props}
         style={{ marginLeft: 10 }}

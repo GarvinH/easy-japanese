@@ -4,7 +4,7 @@ import globalStyles from "../constants/Styles";
 
 import { Text, View } from "../components/Themed";
 
-export default function LearnScreen() {
+export default function AboutScreen() {
   return (
     <View style={globalStyles.container}>
       <ScrollView>

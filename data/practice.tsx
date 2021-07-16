@@ -1,3 +1,4 @@
+import i18next from "i18next";
 import _ from "lodash";
 
 import { hiragana } from "../containers/Game/Characters/Hiragana";
@@ -12,17 +13,13 @@ export interface GameDataProps {
 
 const _gameData: GameDataProps[] = [
   {
-    title: "Hiragana 20 Questions",
-    description:
-      "Practice Hiragana for 20 questions to test your accuracy of identifying Hiragana characters. " +
-      'Only non-combination characters will be tested. For example, "きょ" will not be tested',
+    title: i18next.t("Hiragana20"),
+    description: i18next.t("Hiragana20_Description"),
     characterSet: hiragana,
   },
   {
-    title: "Katakana 20 Questions",
-    description:
-      "Practice Katakana for 20 questions to test your accuracy of identifying Katakana characters. " +
-      'Only non-combination characters will be tested. For example, "ファ" will not be tested',
+    title: i18next.t("Katakana20"),
+    description: i18next.t("Katakana20_Description"),
     characterSet: katakana,
   },
 ];

@@ -54,6 +54,8 @@ import {
 import { View } from "../components/Themed";
 import { useCallback } from "react";
 import BookingConfirmedScreen from "../screens/Tutor/BookingConfirmedScreen";
+import i18next from "i18next";
+import i18n from "../i18n";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -70,6 +72,7 @@ export default function BottomTabNavigator() {
         component={LearnNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
+          tabBarLabel: i18next.t("Learn"),
         }}
       />
       <BottomTab.Screen
@@ -79,6 +82,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon2 name="chalkboard-teacher" color={color} />
           ),
+          tabBarLabel: i18next.t("Tutors"),
         }}
       />
       <BottomTab.Screen
@@ -86,6 +90,7 @@ export default function BottomTabNavigator() {
         component={PracticeNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="play" color={color} />,
+          tabBarLabel: i18next.t("Practice"),
         }}
       />
       <BottomTab.Screen
@@ -95,6 +100,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="info-circle" color={color} />
           ),
+          tabBarLabel: i18next.t("About"),
         }}
       />
     </BottomTab.Navigator>
@@ -135,7 +141,7 @@ function LearnNavigator() {
       <LearnStack.Screen
         name="LearnScreen"
         component={LearnScreen}
-        options={{ headerTitle: "Learn" }}
+        options={{ headerTitle: i18n.t("Learn") }}
       />
     </LearnStack.Navigator>
   );
@@ -194,7 +200,7 @@ function TutorsNavigator() {
           </Dialog.Content>
           <Dialog.Actions>
             <Button onPress={hideHelp} color={colors[colorScheme].tint}>
-              Done
+              {i18next.t("Done")}
             </Button>
           </Dialog.Actions>
         </Dialog>
@@ -259,22 +265,15 @@ const PracticeNavigator = () => {
       <View style={{ flex: 1 }}>
         <PracticeScreen />
         <Dialog visible={showHelp} onDismiss={hideHelp}>
-          <Dialog.Title>Practice Help</Dialog.Title>
+          <Dialog.Title>{i18next.t("Practice_Help")}</Dialog.Title>
           <Dialog.Content>
-            <Paragraph>
-              To select a game, click on their corresponding card.
-            </Paragraph>
-            <Paragraph>
-              Games can be favourited by clicking on the heart icon.
-            </Paragraph>
-            <Paragraph>
-              To only show favourited games, enable the "Show liked only" option
-              in the top right.
-            </Paragraph>
+            <Paragraph>{i18next.t("Practice_Help_Text1")}</Paragraph>
+            <Paragraph>{i18next.t("Practice_Help_Text2")}</Paragraph>
+            <Paragraph>{i18next.t("Practice_Help_Text3")}</Paragraph>
           </Dialog.Content>
           <Dialog.Actions>
             <Button onPress={hideHelp} color={colors[colorScheme].tint}>
-              Done
+              {i18next.t("Done")}
             </Button>
           </Dialog.Actions>
         </Dialog>
@@ -296,7 +295,7 @@ const PracticeNavigator = () => {
           name="PracticeScreen"
           component={PracticeHelpScreen}
           options={{
-            headerTitle: "Practice",
+            headerTitle: i18n.t("Practice"),
             headerRight: () => (
               <HelpIconButton onPress={() => setShowHelp(true)} />
             ),
@@ -305,17 +304,17 @@ const PracticeNavigator = () => {
         <PracticeStack.Screen
           name="PracticeSelectedScreen"
           component={PracticeSelectedScreen}
-          options={{ headerTitle: "Practice" }}
+          options={{ headerTitle: i18n.t("Practice") }}
         />
         <PracticeStack.Screen
           name="GameScreen"
           component={GameScreen}
-          options={{ headerTitle: "Practice" }}
+          options={{ headerTitle: i18n.t("Practice") }}
         />
         <PracticeStack.Screen
           name="ResultsScreen"
           component={ResultsScreen}
-          options={{ headerTitle: "Results" }}
+          options={{ headerTitle: i18n.t("Performance") }}
         />
       </PracticeStack.Navigator>
     </Provider>
