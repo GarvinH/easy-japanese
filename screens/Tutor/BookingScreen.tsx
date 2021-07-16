@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, Touchable } from "react-native";
+import { useSelector } from "react-redux";
+import { shallowEqual } from "react-redux";
+
 import { View } from "../../components/Themed";
 import globalStyles from "../../constants/Styles";
 import * as Yup from "yup";
@@ -8,6 +11,9 @@ import { Paragraph, TextInput, Title } from "react-native-paper";
 import Button from "../../components/Button";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import _ from "lodash";
+import { RouteProp, useRoute } from "@react-navigation/native";
+import { TutorsParamList } from "../../types";
+import { TutorState, TutorType } from "./redux/type";
 
 const formSchema = Yup.object({
   name: Yup.string().required(),
@@ -23,6 +29,17 @@ const formSchema = Yup.object({
 
 const ResultsScreen = () => {
   const [showDatePicker, setShowDatePicker] = useState<boolean>();
+
+  const tutors: readonly TutorType[] = useSelector(
+    (state: TutorState) => state.tutors,
+    shallowEqual
+  );
+
+  const route = useRoute<RouteProp<TutorsParamList, "BookingScreen">>();
+
+  const { id } = route.params;
+
+  const tutor = _.find(tutors, { id });
 
   const minDate = new Date();
   const maxDate = new Date();
@@ -45,6 +62,7 @@ const ResultsScreen = () => {
           touched,
         }) => (
           <View style={{ flex: 1 }}>
+            <Title style={{fontSize: 25, marginBottom: 20}}>Booking for {tutor?.name}</Title>
             <Title>Name</Title>
             <View>
               <TextInput
@@ -67,7 +85,9 @@ const ResultsScreen = () => {
                 placeholder="Ex: example@email.com"
                 error={!!(errors.email && touched.email)}
               />
-              <Paragraph>{touched.email && _.capitalize(errors.email)}</Paragraph>
+              <Paragraph>
+                {touched.email && _.capitalize(errors.email)}
+              </Paragraph>
             </View>
             <Title>Date</Title>
             <TextInput value={values.bookDate} disabled />
@@ -75,7 +95,11 @@ const ResultsScreen = () => {
               text="Select Date"
               onPress={() => setShowDatePicker(true)}
             />
-            <Paragraph>{touched.bookDate && errors.bookDate && "Date is a required field."}</Paragraph>
+            <Paragraph>
+              {touched.bookDate &&
+                errors.bookDate &&
+                "Date is a required field."}
+            </Paragraph>
             {showDatePicker && (
               <RNDateTimePicker
                 minimumDate={minDate}
@@ -90,7 +114,8 @@ const ResultsScreen = () => {
                 display="default"
                 onChange={(event: any, date: any) => {
                   setShowDatePicker(false);
-                  date && handleChange("bookDate")(new Date(date).toDateString());
+                  date &&
+                    handleChange("bookDate")(new Date(date).toDateString());
                 }}
               />
             )}

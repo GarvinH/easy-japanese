@@ -22,7 +22,7 @@ export type LearnParamList = {
 export type TutorsParamList = {
   TutorsScreen: undefined;
   TutorSelectedScreen: { id: string };
-  BookingScreen: undefined;
+  BookingScreen: { id: string };
 };
 
 export type PracticeParamList = {

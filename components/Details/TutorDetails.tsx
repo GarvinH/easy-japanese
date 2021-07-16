@@ -74,7 +74,11 @@ const Body = ({
   </View>
 );
 
-const Footer = () => {
+interface TutorDetailsFooterProps {
+  id: string;
+}
+
+const Footer = ({ id }: TutorDetailsFooterProps) => {
   const navigation =
     useNavigation<
       StackNavigationProp<TutorsParamList, "TutorSelectedScreen">
@@ -83,7 +87,7 @@ const Footer = () => {
     <Button
       text="Book Now"
       onPress={() => {
-        navigation.navigate("BookingScreen");
+        navigation.navigate("BookingScreen", { id });
       }}
       icon="calendar"
     />
@@ -91,14 +95,15 @@ const Footer = () => {
 };
 
 type TutorDetailsProps = TutorBodyProps &
-  TutorHeaderProps & { liked: boolean; onClickHeart: () => void };
+  TutorHeaderProps &
+  TutorDetailsFooterProps & { liked: boolean; onClickHeart: () => void };
 
 const TutorDetails = (props: TutorDetailsProps) => (
   <ScrollLikeable
     {...props}
     header={<TutorHeader {...props} />}
     body={<Body {...props} />}
-    footer={<Footer />}
+    footer={<Footer {...props} />}
   />
 );
 
