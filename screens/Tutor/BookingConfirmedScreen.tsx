@@ -1,45 +1,62 @@
 import * as React from "react";
 import _ from "lodash";
-import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "redux";
+import { StyleSheet } from "react-native";
+import { shallowEqual, useSelector } from "react-redux";
 
 import globalStyles from "../../constants/Styles";
-
-import TutorCard from "../../components/Cards/TutorCard";
 
 import { Text, View } from "../../components/Themed";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TutorsParamList } from "../../types";
-import { Separator } from "../../components/Separator";
-import { TutorState, TutorType } from "./redux/type";
-import { toggleLiked } from "./redux/store/actions";
-import LikedSwitch from "../../components/LikedSwitch";
-import { useState } from "react";
-import { useCallback } from "react";
-import { Paragraph } from "react-native-paper";
+import { TutorState } from "./redux/type";
+import { Paragraph, Title } from "react-native-paper";
+import { ScrollView } from "react-native-gesture-handler";
+import Button from "../../components/Button";
 
 export default function BookingConfirmedScreen() {
-  const [likedOnly, setLikedOnly] = useState<boolean>(false);
-
-  const tutors: readonly TutorType[] = useSelector(
-    (state: TutorState) => state.tutors,
+  const { bookingInfo, tutors } = useSelector(
+    (state: TutorState) => state,
     shallowEqual
   );
 
-  const dispatch: Dispatch<any> = useDispatch();
+  if (_.isNil(bookingInfo)) {
+    throw new Error("booking info should not be undefined");
+  }
 
-  const filteredTutors = likedOnly
-    ? _.filter(tutors, (tutor) => tutor.liked)
-    : tutors;
+  const { tutorId, name, email, bookDate } = bookingInfo;
+
+  const tutor = _.find(tutors, (tutor) => tutorId === tutor.id);
+
+  if (_.isNil(tutor)) {
+    throw new Error("tutor should not be undefined");
+  }
 
   const navigation =
-    useNavigation<StackNavigationProp<TutorsParamList, "TutorsScreen">>();
+    useNavigation<
+      StackNavigationProp<TutorsParamList, "BookingConfirmedScreen">
+    >();
 
   return (
     <View style={globalStyles.container}>
-      <Paragraph>Test</Paragraph>
+      <ScrollView>
+        <Title style={{ fontSize: 25, marginBottom: 20 }}>
+          Booking for {tutor.name} Confirmed
+        </Title>
+        <Title>Name</Title>
+        <Paragraph>{name}</Paragraph>
+        <Title>Email</Title>
+        <Paragraph>{email}</Paragraph>
+        <Title>Date</Title>
+        <Paragraph>{bookDate}</Paragraph>
+      </ScrollView>
+      <Button
+        text="Done"
+        style={{marginTop: 10}}
+        onPress={() => {
+          navigation.popToTop()
+        }}
+      />
     </View>
   );
 }

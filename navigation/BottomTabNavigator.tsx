@@ -226,7 +226,7 @@ function TutorsNavigator() {
         <TutorsStack.Screen
           name="BookingConfirmedScreen"
           component={BookingConfirmedScreen}
-          options={{ headerTitle: "Booking Confirmed" }}
+          options={{ headerTitle: "Booking Confirmed", headerLeft: () => null }}
         />
       </TutorsStack.Navigator>
     </Provider>

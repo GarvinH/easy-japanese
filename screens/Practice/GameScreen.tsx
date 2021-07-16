@@ -27,7 +27,7 @@ const GameScreen = () => {
   const game = _.find(gameData, (gam) => id === gam.id);
 
   if (game === undefined) {
-    throw new Error("Should not happen");
+    throw new Error("no game not allowed");
   }
   return (
     <View style={{ ...globalStyles.container }}>

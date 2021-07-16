@@ -9,9 +9,10 @@ interface BtnProps {
   icon?: string;
   onPress: (() => void);
   outlined?: boolean;
+  style?: {}
 }
 
-const Btn = ({ text, icon, onPress, outlined }: BtnProps) => {
+const Btn = ({ text, icon, onPress, outlined, style }: BtnProps) => {
   const colorScheme = useColorScheme();
   return (
     <Button
@@ -19,6 +20,7 @@ const Btn = ({ text, icon, onPress, outlined }: BtnProps) => {
       icon={icon}
       color={colors[colorScheme].tint}
       onPress={onPress}
+      style={style}
     >
       {text}
     </Button>

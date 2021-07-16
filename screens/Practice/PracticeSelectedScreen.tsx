@@ -29,7 +29,7 @@ export default function PracticeSelectedScreen() {
   const game = _.find(games, (gam) => id === gam.id);
 
   if (game === undefined) {
-    throw new Error("Should not happen");
+    throw new Error("no practice selected not possible");
   }
   return (
     <View style={globalStyles.container}>

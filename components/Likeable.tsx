@@ -4,6 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import useColorScheme from "../hooks/useColorScheme";
 import colors from "../constants/Colors";
 import Styles from "../constants/Styles";
+import { Paragraph } from "react-native-paper";
 
 interface LikeableProps {
   liked?: boolean;
@@ -56,28 +57,30 @@ export const ScrollLikeable = ({
 }: LikeableProps) => {
   const colorScheme = useColorScheme();
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <View style={styles.header}>
-        <View style={styles.headerContent}>{header}</View>
-        <TouchableOpacity onPress={onClickHeart}>
-          <View style={{ marginLeft: 10 }}>
-            {liked ? (
-              <FontAwesome
-                name="heart"
-                size={32}
-                color={colors[colorScheme].tint}
-              />
-            ) : (
-              <View>
-                <FontAwesome name="heart-o" size={32} />
-              </View>
-            )}
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View>{body}</View>
+    <View style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.header}>
+          <View style={styles.headerContent}>{header}</View>
+          <TouchableOpacity onPress={onClickHeart}>
+            <View style={{ marginLeft: 10 }}>
+              {liked ? (
+                <FontAwesome
+                  name="heart"
+                  size={32}
+                  color={colors[colorScheme].tint}
+                />
+              ) : (
+                <View>
+                  <FontAwesome name="heart-o" size={32} />
+                </View>
+              )}
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View>{body}</View>
+      </ScrollView>
       {footer && <View style={styles.footer}>{footer}</View>}
-    </ScrollView>
+    </View>
   );
 };
 
@@ -91,9 +94,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   footer: {
-    flex: 1,
     justifyContent: "flex-end",
-    marginTop: 50,
+    marginTop: 10,
   },
 });
 

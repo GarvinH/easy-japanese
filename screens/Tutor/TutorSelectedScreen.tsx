@@ -27,7 +27,7 @@ export default function TutorSelectedScreen() {
   const tutor = _.find(tutors, (tut) => id === tut.id);
 
   if (tutor === undefined) {
-    throw new Error("Should not happen");
+    throw new Error("no tutor selected not possible");
   }
   return (
     <View style={globalStyles.container}>

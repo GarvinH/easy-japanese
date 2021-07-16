@@ -26,10 +26,6 @@ const reducer = (state: GameState = initialState, action: GameAction) => {
       return { ...state, games: newGames };
     }
     case actionTypes.UPDATE_HISTORY: {
-      if (_.isNil(action.results)) {
-        throw new Error("Should not happen");
-      }
-
       const newHistory =
         _.findIndex(state.history, { id: action.gameId }) === -1
           ? _.concat(state.history, [
