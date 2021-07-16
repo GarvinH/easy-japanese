@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { StyleSheet, Touchable } from "react-native";
+import {
+  Keyboard,
+  StyleSheet,
+  Touchable,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { shallowEqual } from "react-redux";
 
@@ -11,7 +16,12 @@ import { Paragraph, TextInput, Title } from "react-native-paper";
 import Button from "../../components/Button";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import _ from "lodash";
-import { NavigationProp, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { TutorsParamList } from "../../types";
 import { TutorState, TutorType } from "./redux/type";
 import { Dispatch } from "redux";
@@ -40,7 +50,8 @@ const ResultsScreen = () => {
   const dispatch: Dispatch<any> = useDispatch();
 
   const route = useRoute<RouteProp<TutorsParamList, "BookingScreen">>();
-  const navigator = useNavigation<NavigationProp<TutorsParamList, "BookingScreen">>()
+  const navigator =
+    useNavigation<NavigationProp<TutorsParamList, "BookingScreen">>();
 
   const { id } = route.params;
 
@@ -52,91 +63,95 @@ const ResultsScreen = () => {
   maxDate.setMonth(new Date().getMonth() + 1);
 
   return (
-    <View style={{ ...globalStyles.container }}>
-      <Formik
-        initialValues={{ name: "", email: "", bookDate: "No date selected" }}
-        validationSchema={formSchema}
-        onSubmit={(values) => {
-          dispatch(updateBooking({ ...values, tutorId: id }));
-          navigator.navigate("BookingConfirmedScreen")
-        }}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-        }) => (
-          <View style={{ flex: 1 }}>
-            <Title style={{ fontSize: 25, marginBottom: 20 }}>
-              Booking for {tutor?.name}
-            </Title>
-            <Title>Name</Title>
-            <View>
-              <TextInput
-                onChangeText={handleChange("name")}
-                onBlur={handleBlur("name")}
-                value={values.name}
-                theme={{ colors: { primary: "red" } }}
-                placeholder="Ex: John Smith"
-                error={!!(errors.name && touched.name)}
-              />
-              <Paragraph>{touched.name && _.capitalize(errors.name)}</Paragraph>
-            </View>
-            <Title>Email</Title>
-            <View>
-              <TextInput
-                onChangeText={handleChange("email")}
-                onBlur={handleBlur("email")}
-                value={values.email}
-                theme={{ colors: { primary: "red" } }}
-                placeholder="Ex: example@email.com"
-                error={!!(errors.email && touched.email)}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={{ ...globalStyles.container }}>
+        <Formik
+          initialValues={{ name: "", email: "", bookDate: "No date selected" }}
+          validationSchema={formSchema}
+          onSubmit={(values) => {
+            dispatch(updateBooking({ ...values, tutorId: id }));
+            navigator.navigate("BookingConfirmedScreen");
+          }}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+          }) => (
+            <View style={{ flex: 1 }}>
+              <Title style={{ fontSize: 25, marginBottom: 20 }}>
+                Booking for {tutor?.name}
+              </Title>
+              <Title>Name</Title>
+              <View>
+                <TextInput
+                  onChangeText={handleChange("name")}
+                  onBlur={handleBlur("name")}
+                  value={values.name}
+                  theme={{ colors: { primary: "red" } }}
+                  placeholder="Ex: John Smith"
+                  error={!!(errors.name && touched.name)}
+                />
+                <Paragraph>
+                  {touched.name && _.capitalize(errors.name)}
+                </Paragraph>
+              </View>
+              <Title>Email</Title>
+              <View>
+                <TextInput
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  value={values.email}
+                  theme={{ colors: { primary: "red" } }}
+                  placeholder="Ex: example@email.com"
+                  error={!!(errors.email && touched.email)}
+                />
+                <Paragraph>
+                  {touched.email && _.capitalize(errors.email)}
+                </Paragraph>
+              </View>
+              <Title>Date</Title>
+              <TextInput value={values.bookDate} disabled />
+              <Button
+                text="Select Date"
+                onPress={() => setShowDatePicker(true)}
               />
               <Paragraph>
-                {touched.email && _.capitalize(errors.email)}
+                {touched.bookDate &&
+                  errors.bookDate &&
+                  "Date is a required field."}
               </Paragraph>
-            </View>
-            <Title>Date</Title>
-            <TextInput value={values.bookDate} disabled />
-            <Button
-              text="Select Date"
-              onPress={() => setShowDatePicker(true)}
-            />
-            <Paragraph>
-              {touched.bookDate &&
-                errors.bookDate &&
-                "Date is a required field."}
-            </Paragraph>
-            {showDatePicker && (
-              <RNDateTimePicker
-                minimumDate={minDate}
-                maximumDate={maxDate}
-                testID="dateTimePicker"
-                value={
-                  _.isNaN(Date.parse(values.bookDate))
-                    ? new Date()
-                    : new Date(values.bookDate)
-                }
-                mode="date"
-                display="default"
-                onChange={(event: any, date: any) => {
-                  setShowDatePicker(false);
-                  date &&
-                    handleChange("bookDate")(new Date(date).toDateString());
-                }}
-              />
-            )}
+              {showDatePicker && (
+                <RNDateTimePicker
+                  minimumDate={minDate}
+                  maximumDate={maxDate}
+                  testID="dateTimePicker"
+                  value={
+                    _.isNaN(Date.parse(values.bookDate))
+                      ? new Date()
+                      : new Date(values.bookDate)
+                  }
+                  mode="date"
+                  display="default"
+                  onChange={(event: any, date: any) => {
+                    setShowDatePicker(false);
+                    date &&
+                      handleChange("bookDate")(new Date(date).toDateString());
+                  }}
+                />
+              )}
 
-            <View style={{ flex: 1, justifyContent: "flex-end" }}>
-              <Button onPress={handleSubmit} text="Submit" />
+              <View style={{ flex: 1, justifyContent: "flex-end" }}>
+                <Button onPress={handleSubmit} text="Submit" />
+              </View>
             </View>
-          </View>
-        )}
-      </Formik>
-    </View>
+          )}
+        </Formik>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 export default ResultsScreen;

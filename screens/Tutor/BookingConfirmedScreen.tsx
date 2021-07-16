@@ -49,12 +49,15 @@ export default function BookingConfirmedScreen() {
         <Paragraph>{email}</Paragraph>
         <Title>Date</Title>
         <Paragraph>{bookDate}</Paragraph>
+        <Paragraph style={{marginTop: 20}}>
+          Thank you! Expect an email from {tutor.name} within 48 hours.
+        </Paragraph>
       </ScrollView>
       <Button
         text="Done"
-        style={{marginTop: 10}}
+        style={{ marginTop: 10 }}
         onPress={() => {
-          navigation.popToTop()
+          navigation.popToTop();
         }}
       />
     </View>

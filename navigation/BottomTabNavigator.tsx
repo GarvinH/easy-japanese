@@ -177,10 +177,19 @@ function TutorsNavigator() {
           <Dialog.Title>Tutor Help</Dialog.Title>
           <Dialog.Content>
             <Paragraph>
-              To select a tutor, click on their corresponding card.{"\n"}Tutors
-              can be favourited by clicking on the heart icon.{"\n"}To only show
-              favourited tutors, enable the "Show liked only" option in the top
-              right.
+              To select a tutor, click on their corresponding card.
+            </Paragraph>
+            <Paragraph>
+              Tutors can be favourited by clicking on the heart icon.
+            </Paragraph>
+            <Paragraph>
+              To only show favourited tutors, enable the "Show liked only"
+              option in the top right.
+            </Paragraph>
+            <Paragraph>
+              Please note that booking a tutor does not include any
+              transactions. The booking service is used for making contact with
+              tutors.
             </Paragraph>
           </Dialog.Content>
           <Dialog.Actions>
@@ -254,7 +263,11 @@ const PracticeNavigator = () => {
           <Dialog.Content>
             <Paragraph>
               To select a game, click on their corresponding card.
-              {"\n"}Games can be favourited by clicking on the heart icon.{"\n"}
+            </Paragraph>
+            <Paragraph>
+              Games can be favourited by clicking on the heart icon.
+            </Paragraph>
+            <Paragraph>
               To only show favourited games, enable the "Show liked only" option
               in the top right.
             </Paragraph>
