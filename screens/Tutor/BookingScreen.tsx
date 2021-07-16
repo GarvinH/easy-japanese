@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Touchable } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { shallowEqual } from "react-redux";
 
 import { View } from "../../components/Themed";
@@ -11,9 +11,11 @@ import { Paragraph, TextInput, Title } from "react-native-paper";
 import Button from "../../components/Button";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import _ from "lodash";
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { NavigationProp, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { TutorsParamList } from "../../types";
 import { TutorState, TutorType } from "./redux/type";
+import { Dispatch } from "redux";
+import { updateBooking } from "./redux/store/actions";
 
 const formSchema = Yup.object({
   name: Yup.string().required(),
@@ -35,7 +37,10 @@ const ResultsScreen = () => {
     shallowEqual
   );
 
+  const dispatch: Dispatch<any> = useDispatch();
+
   const route = useRoute<RouteProp<TutorsParamList, "BookingScreen">>();
+  const navigator = useNavigation<NavigationProp<TutorsParamList, "BookingScreen">>()
 
   const { id } = route.params;
 
@@ -51,7 +56,10 @@ const ResultsScreen = () => {
       <Formik
         initialValues={{ name: "", email: "", bookDate: "No date selected" }}
         validationSchema={formSchema}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => {
+          dispatch(updateBooking({ ...values, tutorId: id }));
+          navigator.navigate("BookingConfirmedScreen")
+        }}
       >
         {({
           handleChange,
@@ -62,7 +70,9 @@ const ResultsScreen = () => {
           touched,
         }) => (
           <View style={{ flex: 1 }}>
-            <Title style={{fontSize: 25, marginBottom: 20}}>Booking for {tutor?.name}</Title>
+            <Title style={{ fontSize: 25, marginBottom: 20 }}>
+              Booking for {tutor?.name}
+            </Title>
             <Title>Name</Title>
             <View>
               <TextInput

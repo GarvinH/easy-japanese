@@ -27,6 +27,7 @@ export default {
               PracticeScreen: "practice",
               PracticeSelectedScreen: "practice-selected",
               GameScreen: "game",
+              BookingConfirmedScreen: "booking-confirmed"
             },
           },
           About: {

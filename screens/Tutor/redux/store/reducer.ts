@@ -11,6 +11,7 @@ const initialTutorData = _.map(tutorData, (tutor) => ({
 
 const initialState: TutorState = {
   tutors: initialTutorData,
+  bookingInfo: undefined,
 };
 
 const reducer = (state: TutorState = initialState, action: TutorAction) => {
@@ -23,6 +24,9 @@ const reducer = (state: TutorState = initialState, action: TutorAction) => {
       );
 
       return { ...state, tutors: newTutors };
+    }
+    case actionTypes.UPDATE_BOOKING: {
+      return { ...state, bookingInfo: action.bookingData };
     }
   }
 

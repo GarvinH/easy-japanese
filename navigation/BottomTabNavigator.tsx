@@ -53,6 +53,7 @@ import {
 } from "react-native-paper";
 import { View } from "../components/Themed";
 import { useCallback } from "react";
+import BookingConfirmedScreen from "../screens/Tutor/BookingConfirmedScreen";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -221,6 +222,11 @@ function TutorsNavigator() {
           name="BookingScreen"
           component={BookingScreen}
           options={{ headerTitle: "Booking" }}
+        />
+        <TutorsStack.Screen
+          name="BookingConfirmedScreen"
+          component={BookingConfirmedScreen}
+          options={{ headerTitle: "Booking Confirmed" }}
         />
       </TutorsStack.Navigator>
     </Provider>
